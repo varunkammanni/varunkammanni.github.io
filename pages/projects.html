@@ -5,95 +5,48 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Projects - Varun KV</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link href="../styles.css" rel="stylesheet">
 </head>
-<body class="bg-gray-100 font-sans">
-  <!-- Navigation -->
-  <nav class="bg-blue-900 text-white p-4 sticky top-0 shadow-md">
+<body class="bg-gray-50 font-sans text-gray-800">
+  <nav class="bg-blue-900 text-white p-4 shadow-md">
     <div class="container mx-auto flex justify-between items-center">
       <h1 class="text-2xl font-bold">Varun KV</h1>
-      <ul class="flex space-x-4">
-        <li><a href="index.html" class="hover:text-blue-300">Home</a></li>
-        <li><a href="projects.html" class="hover:text-blue-300">Projects</a></li>
-        <li><a href="#contact" class="hover:text-blue-300">Contact</a></li>
+      <ul class="flex space-x-6">
+        <li><a href="/" class="hover:text-yellow-300">Home</a></li>
+        <li><a href="projects.html" class="hover:text-yellow-300">Projects</a></li>
+        <li><a href="#contact" class="hover:text-yellow-300">Contact</a></li>
       </ul>
     </div>
   </nav>
 
-  <!-- Projects Section -->
-  <section class="py-16 bg-white">
-    <div class="container mx-auto px-4">
-      <h3 class="text-3xl font-bold text-center mb-8">Projects</h3>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <!-- Python Project -->
-        <div class="bg-gray-100 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
-          <h4 class="text-xl font-semibold mb-2">Python Analytics Tool</h4>
-          <p class="text-gray-700 mb-4">Developed a Python tool using pandas and numpy to analyze patient behavior data for Healthnet, optimizing healthcare service strategies.</p>
-          <p class="text-sm text-gray-500">Technologies: Python, pandas, numpy, matplotlib</p>
-        </div>
-        <!-- Tableau Project -->
-        <div class="bg-gray-100 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
-          <h4 class="text-xl font-semibold mb-2">Tableau World Demo Animation</h4>
-          <p class="text-gray-700 mb-4">Created an interactive Tableau visualization showcasing global data trends with animations, enabling dynamic exploration of insights.</p>
+  <section class="py-20 bg-white">
+    <div class="container mx-auto px-6">
+      <h3 class="text-4xl font-bold text-center text-teal-700 mb-12">My Projects</h3>
+      <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-8 justify-items-center">
+        <div class="bg-gray-50 p-6 rounded-lg shadow-md hover:shadow-lg transition w-full max-w-2xl">
+          <h4 class="text-xl font-semibold text-blue-900 mb-2">Tableau World Demo</h4>
+          <p class="text-gray-700 mb-4">An interactive Tableau visualization showcasing global data trends with animations, enabling dynamic exploration of insights as available on Tableau Public.</p>
           <div class="tableauPlaceholder" id="viz1751991554074" style="position: relative">
-            <noscript>
-              <a href="https://public.tableau.com/views/Section_5_World_Demo/Animation">
-                <img alt="Animation - 1999" src="https://public.tableau.com/static/images/Se/Section_5_World_Demo/Animation/1_rss.png" style="border: none" />
-              </a>
-            </noscript>
-            <object class="tableauViz" style="display:none;">
-              <param name="host_url" value="https%3A%2F%2Fpublic.tableau.com%2F" />
-              <param name="embed_code_version" value="3" />
-              <param name="site_root" value="" />
-              <param name="name" value="Section_5_World_Demo/Animation" />
-              <param name="tabs" value="no" />
-              <param name="toolbar" value="yes" />
-              <param name="static_image" value="https://public.tableau.com/static/images/Se/Section_5_World_Demo/Animation/1.png" />
-              <param name="animate_transition" value="yes" />
-              <param name="display_static_image" value="yes" />
-              <param name="display_spinner" value="yes" />
-              <param name="display_overlay" value="yes" />
-              <param name="display_count" value="yes" />
-              <param name="language" value="en-GB" />
-            </object>
-          </div>
-          <p class="text-sm text-gray-500 mt-4">Technologies: Tableau, SQL</p>
-        </div>
-        <!-- SQL Project -->
-        <div class="bg-gray-100 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
-          <h4 class="text-xl font-semibold mb-2">SQL VFX Asset Optimization</h4>
-          <p class="text-gray-700 mb-4">Wrote SQL queries to clean and optimize VFX asset metadata, ensuring accurate tracking for 65+ artists and supervisors.</p>
-          <p class="text-sm text-gray-500">Technologies: SQL, PostgreSQL, MySQL</p>
-        </div>
-        <!-- Power BI Project -->
-        <div class="bg-gray-100 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
-          <h4 class="text-xl font-semibold mb-2">Power BI Healthnet Insights</h4>
-          <p class="text-gray-700 mb-4">Created Power BI dashboards for Healthnet user data, enabling 500+ client users to gain actionable insights.</p>
-          <p class="text-sm text-gray-500">Technologies: Power BI, SQL</p>
-        </div>
-        <!-- Automation Project -->
-        <div class="bg-gray-100 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
-          <h4 class="text-xl font-semibold mb-2">ServiceNow Workflow Automation</h4>
-          <p class="text-gray-700 mb-4">Automated ServiceNow workflows to streamline project documentation and reporting, enhancing PMO efficiency.</p>
-          <p class="text-sm text-gray-500">Technologies: ServiceNow, Python, SQL</p>
+            <noscript><a href="https://public.tableau.com/views/Section_5_World_Demo/Animation"><img alt="Animation - 1999" src="https://public.tableau.com/static/images/Se/Section_5_World_Demo/Animation/1_rss.png" style="border: none" /></a></noscript>
+            <object class="tableauViz" style="display:none;"><param name="host_url" value="https%3A%2F%2Fpublic.tableau.com%2F" /><param name="embed_code_version" value="3" /><param name="site_root" value="" /><param name="name" value="Section_5_World_Demo/Animation" /><param name="tabs" value="no" /><param name="toolbar" value="yes" /><param name="static_image" value="https://public.tableau.com/static/images/Se/Section_5_World_Demo/Animation/1.png" /><param name="animate_transition" value="yes" /><param name="display_static_image" value="yes" /><param name="display_spinner" value="yes" /><param name="display_overlay" value="yes" /><param name="display_count" value="yes" /><param name="language" value="en-GB" /></object></div>
+          <p class="text-sm text-teal-600 mt-4">Technologies: Tableau, SQL</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Contact Section -->
-  <section id="contact" class="py-16 bg-blue-900 text-white text-center">
-    <div class="container mx-auto px-4">
-      <h3 class="text-3xl font-bold mb-8">Get in Touch</h3>
-      <p class="text-lg mb-6">Interested in collaborating? Reach out via email or LinkedIn.</p>
-      <div class="flex justify-center space-x-4">
-        <a href="mailto:varun@example.com" class="bg-yellow-400 text-blue-900 px-6 py-3 rounded-full font-semibold hover:bg-yellow-500">Email Me</a>
-        <a href="https://linkedin.com/in/varunkv" class="bg-yellow-400 text-blue-900 px-6 py-3 rounded-full font-semibold hover:bg-yellow-500">LinkedIn</a>
+  <section id="contact" class="py-20 bg-teal-700 text-white">
+    <div class="container mx-auto px-6 text-center">
+      <h3 class="text-4xl font-bold mb-8">Get in Touch</h3>
+      <p class="text-lg mb-6">Ready to collaborate? Connect with me!</p>
+      <div class="flex justify-center space-x-6">
+        <a href="mailto:varun@example.com" class="bg-yellow-400 text-blue-900 px-6 py-3 rounded-lg font-semibold hover:bg-yellow-500 transition">Email</a>
+        <a href="https://linkedin.com/in/varunkv" class="bg-yellow-400 text-blue-900 px-6 py-3 rounded-lg font-semibold hover:bg-yellow-500 transition">LinkedIn</a>
       </div>
     </div>
   </section>
 
-  <script src="script.js"></script>
+  <script src="../script.js"></script>
   <script type="text/javascript">
     document.addEventListener('DOMContentLoaded', () => {
       const divElement = document.getElementById('viz1751991554074');
@@ -103,8 +56,6 @@
       const scriptElement = document.createElement('script');
       scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
       vizElement.parentNode.insertBefore(scriptElement, vizElement);
-
-      // Adjust height on window resize for responsiveness
       window.addEventListener('resize', () => {
         vizElement.style.height = (divElement.offsetWidth * 0.75) + 'px';
       });
