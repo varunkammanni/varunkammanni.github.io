@@ -33,9 +33,31 @@
         </div>
         <!-- Tableau Project -->
         <div class="bg-gray-100 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
-          <h4 class="text-xl font-semibold mb-2">Tableau Render Farm Dashboard</h4>
-          <p class="text-gray-700 mb-4">Built interactive Tableau dashboards to visualize VFX render farm performance and project timelines, improving resource allocation.</p>
-          <p class="text-sm text-gray-500">Technologies: Tableau, SQL</p>
+          <h4 class="text-xl font-semibold mb-2">Tableau World Demo Animation</h4>
+          <p class="text-gray-700 mb-4">Created an interactive Tableau visualization showcasing global data trends with animations, enabling dynamic exploration of insights.</p>
+          <div class="tableauPlaceholder" id="viz1751991554074" style="position: relative">
+            <noscript>
+              <a href="https://public.tableau.com/views/Section_5_World_Demo/Animation">
+                <img alt="Animation - 1999" src="https://public.tableau.com/static/images/Se/Section_5_World_Demo/Animation/1_rss.png" style="border: none" />
+              </a>
+            </noscript>
+            <object class="tableauViz" style="display:none;">
+              <param name="host_url" value="https%3A%2F%2Fpublic.tableau.com%2F" />
+              <param name="embed_code_version" value="3" />
+              <param name="site_root" value="" />
+              <param name="name" value="Section_5_World_Demo/Animation" />
+              <param name="tabs" value="no" />
+              <param name="toolbar" value="yes" />
+              <param name="static_image" value="https://public.tableau.com/static/images/Se/Section_5_World_Demo/Animation/1.png" />
+              <param name="animate_transition" value="yes" />
+              <param name="display_static_image" value="yes" />
+              <param name="display_spinner" value="yes" />
+              <param name="display_overlay" value="yes" />
+              <param name="display_count" value="yes" />
+              <param name="language" value="en-GB" />
+            </object>
+          </div>
+          <p class="text-sm text-gray-500 mt-4">Technologies: Tableau, SQL</p>
         </div>
         <!-- SQL Project -->
         <div class="bg-gray-100 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
@@ -72,5 +94,21 @@
   </section>
 
   <script src="script.js"></script>
+  <script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', () => {
+      const divElement = document.getElementById('viz1751991554074');
+      const vizElement = divElement.getElementsByTagName('object')[0];
+      vizElement.style.width = '100%';
+      vizElement.style.height = (divElement.offsetWidth * 0.75) + 'px';
+      const scriptElement = document.createElement('script');
+      scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+      vizElement.parentNode.insertBefore(scriptElement, vizElement);
+
+      // Adjust height on window resize for responsiveness
+      window.addEventListener('resize', () => {
+        vizElement.style.height = (divElement.offsetWidth * 0.75) + 'px';
+      });
+    });
+  </script>
 </body>
 </html>
