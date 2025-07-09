@@ -1,112 +1,501 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Varun Kammanni - Data Analyst</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <link href="../styles.css" rel="stylesheet">
-  <style>
-    nav {
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Varun Kammanni | Data Analyst</title>
+
+    <!-- Google Fonts: Poppins & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Theme Persistence Script -->
+    <script>
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+
+    <!-- Custom CSS & Tailwind Configuration -->
+    <style type="text/tailwindcss">
+        @layer base {
+            html { font-family: 'Inter', sans-serif; }
+            h1, h2, h3, h4, h5, h6 { font-family: 'Poppins', sans-serif; }
+        }
+        /* Custom Styles & Animations */
+        .animated-element {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .animated-element.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .scroll-parallax {
+            transition: transform 0.5s ease-out;
+        }
+        .gradient-bg {
+            background-image: radial-gradient(circle at 10% 20%, rgba(59, 130, 246, 0.05) 0%, transparent 40%),
+                              radial-gradient(circle at 90% 85%, rgba(13, 148, 136, 0.05) 0%, transparent 40%);
+        }
+        .dark .gradient-bg {
+            background-image: radial-gradient(circle at 10% 20%, rgba(59, 130, 246, 0.1) 0%, transparent 40%),
+                              radial-gradient(circle at 90% 85%, rgba(13, 148, 136, 0.1) 0%, transparent 40%);
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(-15%); animation-timing-function: cubic-bezier(0.8,0,1,1); }
+            50% { transform: translateY(0); animation-timing-function: cubic-bezier(0,0,0.2,1); }
+        }
+        .animate-bounce-slow {
+            animation: bounce 2s infinite;
+        }
+    </style>
 </head>
-<body class="bg-gray-50 font-sans text-black">
-  <nav class="bg-black text-white p-4 shadow-md fixed top-0 left-0 w-full z-50">
-    <div class="container mx-auto flex justify-between items-center px-80">
-      <a href="/" class="text-2xl font-bold hover:text-yellow-300 transition-colors">Varun Kammanni</a>
-      <ul class="flex space-x-4">
-        <li><a href="pages/" class="hover:text-yellow-100">Home</a></li>
-        <li><a href="pages/projects.html" class="hover:text-yellow-300">Projects</a></li>
-        <li><a href="#contact" class="hover:text-yellow-100">Contact</a></li>
-      </ul>
-    </div>
-  </nav>
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200 transition-colors duration-300">
 
-  <section class="w-full min-h-[80vh] bg-gray-800 flex justify-center items-center pt-24">
-    <div class="text-white shadow-xl rounded-none p-12 max-w-3xl w-full flex flex-col items-center">
-      <h2 class="text-4xl font-extrabold mb-4 text-center">Varun Kammanni</h2>
-      <p class="text-xl mb-6 text-center font-semibold">Data Analyst & Insights Expert</p>
-      <div class="w-full text-center px-2 max-w-5xl mx-auto">
-        <p class="text-base mb-4">Experienced Data Analyst with over 6 years of combined expertise in project management and data analysis, with a strong focus on the healthcare, staffing, retail, and finance industries. Skilled in SQL, Python, Tableau, and Power BI, I specialize in uncovering actionable insights, streamlining operations, and building impactful dashboards that drive informed decision-making.</p>
-        <p class="text-base"> I have a proven track record of reducing render delays by 30% and enhancing ETL processes for better performance and efficiency. Certified in AWS and Tableau, I bring a data-driven mindset combined with the ability to communicate findings effectively to both technical and non-technical stakeholders.</p>
-      </div>
-      <a href="pages/projects.html" class="mt-10 bg-yellow-400 text-blue-900 px-10 py-4 rounded-lg font-bold text-lg shadow-md transition-transform duration-200 hover:scale-110 hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-300">Projects</a>
+    <!-- Scroll Progress Indicator -->
+    <div id="scroll-progress-container" class="hidden md:block fixed top-1/2 -translate-y-1/2 left-5 lg:left-8 h-48 w-1 bg-gray-200 dark:bg-gray-700 rounded-full z-50">
+        <div id="scroll-progress-bar" class="w-full h-0 bg-blue-500 dark:bg-teal-400 rounded-full transition-all duration-100 ease-linear"></div>
     </div>
-  </section>
 
-  <section id="resume" class="py-20 bg-white shadow-md rounded-lg mt-8 mb-8">
-    <div class="container mx-auto px-6">
-      <h3 class="text-4xl font-bold text-center text-teal-700 mb-12">Resume Summary</h3>
-      <div class="flex flex-col gap-10 items-center text-center">
-        <div class="w-full max-w-2xl">
-          <h4 class="text-2xl font-semibold text-blue-900 mb-4">Experience</h4>
-          <p class="font-large underline">Data Analyst</p>
-          <p class="font-medium">SOHO VFX - 2022-2025</p>
-          <div class="mb-4 flex flex-col items-center">
-            <p class="text-center w-full max-w-xl">Optimized SQL queries, cutting render delays by 30%.</p>
-            <p class="text-center w-full max-w-xl">Developed Tableau/Power BI dashboards for performance tracking.</p>
-            <p class="text-center w-full max-w-xl">Conducted A/B tests with Python (pandas, numpy).</p>
-          </div>
-          <p class="font-large underline">PMO Analyst | Data Analyst</p>
-          <p class="font-medium">Cognizant - 2014-2019</p>
-          <div class="flex flex-col items-center">
-            <p class="text-center w-full max-w-xl">Enhanced Healthnet queries with SQL, reducing times by 20%.</p>
-            <p class="text-center w-full max-w-xl">Built Python tools for patient insights.</p>
-            <p class="text-center w-full max-w-xl">Ensured 90% IT uptime.</p>
-          </div>
+    <div class="fixed inset-0 -z-10 gradient-bg"></div>
+
+    <!-- Header & Navigation -->
+    <header id="header" class="fixed top-0 left-0 right-0 z-40 transition-all duration-300">
+        <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <a href="#home" class="text-xl font-bold font-['Poppins'] tracking-tight">Varun Kammanni</a>
+                <nav class="hidden md:flex items-center space-x-6 lg:space-x-8">
+                    <a href="#projects" class="nav-link">Projects</a>
+                    <a href="#experience" class="nav-link">Experience</a>
+                    <a href="#education" class="nav-link">Education</a>
+                    <a href="#skills" class="nav-link">Skills</a>
+                    <a href="#contact" class="nav-link">Contact</a>
+                </nav>
+                <div class="flex items-center space-x-4">
+                    <button id="theme-toggle" class="w-10 h-10 rounded-lg flex items-center justify-center text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        <i id="theme-icon-sun" class="fas fa-sun"></i>
+                        <i id="theme-icon-moon" class="fas fa-moon hidden"></i>
+                    </button>
+                    <button id="mobile-menu-button" class="md:hidden w-10 h-10 flex items-center justify-center text-gray-600 dark:text-gray-300">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
         </div>
-        <div class="w-full max-w-2xl">
-          <h4 class="text-2xl font-semibold text-blue-900 mb-4">Education & Certifications</h4>
-          <p class="font-medium">Master's Degree, University of West London (2019-20)</p>
-          <p class="font-medium">Bachelor of Engineering, VTU (2014)</p>
-          <div class="mt-4 flex flex-col items-center">
-            <p class="text-center w-full max-w-xl">AWS Certified Solutions Architect - Associate</p>
-            <p class="text-center w-full max-w-xl">Tableau Certified Data Analyst</p>
-            <p class="text-center w-full max-w-xl">Fundamentals of AI by IBM</p>
-            <p class="text-center w-full max-w-xl">Google Data Analytics Professional Certificate</p>
-          </div>
-        </div>
-        <div class="w-full max-w-2xl mt-8">
-          <h4 class="text-2xl font-semibold text-blue-900 mb-4">Skills</h4>
-            <ul class="text-black text-base text-center">
-              <li class="mb-4">
-                <div class="font-bold">Programming Languages:</div>
-                <div>Python, Shellscripting, and R.</div>
-              </li>
-              <li class="mb-4">
-                <div class="font-bold">Applications/tools:</div>
-                <div>Microsoft Office Suite, Tableau, Power BI, Excel, PostgreSQL, MySQL, ServiceNow, AD.</div>
-              </li>
-              <li class="mb-4">
-                <div class="font-bold">Others :</div>
-                <div>Git/GitHub, T-SQL, VMWare, numpy, pandas, matplotlib, Looker Studio, IBM Cognos Analytics, Knowledge in Amazon RDS, AWS, Salesforce, SAP, and Web services types of applications.</div>
-              </li>
-              <li>
-                <div class="font-bold">OS:</div>
-                <div>Linux (Solaris 11, Redhat Linux), Mac, Windows.</div>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+    </header>
 
-  <section id="contact" class="py-20 bg-teal-700 text-black shadow-xl rounded-lg mt-8 mb-8">
-    <div class="container mx-auto px-6 text-center">
-      <img src="assets/img/placeholder.png" alt="Varun KV" class="rounded-lg shadow-xl mx-auto w-40 h-40 object-cover mb-8 border-4 border-gray-700">
-      <h3 class="text-lg font-bold mb-8">Get in Touch</h3>
-      <p class="text-lg mb-6"> Connect with me!</p>
-      <div class="flex justify-center space-x-6">
-        <a href="mailto:varunkammanni@gmail.com" class="bg-yellow-400 text-blue-900 px-6 py-3 rounded-lg font-semibold hover:bg-yellow-500 transition">Email</a>
-        <a href="https://www.linkedin.com/in/varunkammanni/" class="bg-yellow-400 text-blue-900 px-6 py-3 rounded-lg font-semibold hover:bg-yellow-500 transition">LinkedIn</a>
-      </div>
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden fixed inset-0 bg-gray-50 dark:bg-gray-900 z-30 p-4">
+        <div class="flex flex-col items-center justify-center h-full space-y-8">
+            <a href="#home" class="mobile-menu-link text-2xl font-semibold">Home</a>
+            <a href="#projects" class="mobile-menu-link text-2xl font-semibold">Projects</a>
+            <a href="#experience" class="mobile-menu-link text-2xl font-semibold">Experience</a>
+            <a href="#education" class="mobile-menu-link text-2xl font-semibold">Education</a>
+            <a href="#skills" class="mobile-menu-link text-2xl font-semibold">Skills</a>
+            <a href="#contact" class="mobile-menu-link text-2xl font-semibold">Contact</a>
+        </div>
     </div>
-  </section>
 
-  <script src="../script.js"></script>
+    <main class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+
+        <!-- Home & About Section -->
+        <section id="home" class="min-h-screen flex flex-col items-center justify-center text-center relative">
+            <div class="w-full max-w-4xl">
+                <div class="animated-element">
+                    <h1 class="text-5xl md:text-7xl font-bold tracking-tighter mb-4">Varun Kammanni</h1>
+                    <p class="text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                        Data Analyst | Turning Data into Actionable Insights
+                    </p>
+                    <div class="mt-8 flex justify-center space-x-6">
+                        <a href="https://www.linkedin.com/in/varunkammanni/" target="_blank" class="social-icon"><i class="fab fa-linkedin fa-2x"></i></a>
+                        <a href="https://github.com/varunkammanni" target="_blank" class="social-icon"><i class="fab fa-github fa-2x"></i></a>
+                        <a href="mailto:varunkammanni@gmail.com" class="social-icon"><i class="fas fa-envelope fa-2x"></i></a>
+                    </div>
+                </div>
+                
+                <div class="animated-element mt-12 max-w-3xl mx-auto text-center leading-relaxed text-gray-700 dark:text-gray-300">
+                     <p>
+                        I am a detail-oriented analyst with a passion for uncovering the stories hidden within data. My expertise lies in cleaning, transforming, and visualizing complex datasets to drive data-informed decision-making. With a strong background in SQL, Python, and data visualization tools like Tableau and Power BI, I excel at turning raw numbers into clear, actionable insights. I am committed to leveraging data to solve business problems and am always eager to learn new techniques and technologies in the ever-evolving field of data analytics.
+                    </p>
+                </div>
+            </div>
+            <a href="#projects" class="absolute bottom-10 animate-bounce-slow">
+                <div class="w-10 h-16 rounded-full border-2 border-gray-400 dark:border-gray-500 flex items-center justify-center">
+                    <i class="fas fa-arrow-down text-gray-500 dark:text-gray-400"></i>
+                </div>
+            </a>
+        </section>
+
+        <!-- Divider -->
+        <hr class="max-w-xl mx-auto border-t border-gray-200 dark:border-gray-700">
+
+        <!-- Projects Section -->
+        <section id="projects" class="py-20 md:py-32">
+            <!-- Section Header -->
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12 text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 flex items-center justify-center gap-4">
+                    <i class="fas fa-star-of-life text-teal-400 text-2xl"></i>
+                    <span>Selected Projects</span>
+                </h2>
+                <!-- Category Tabs -->
+                <div id="project-category-tabs" class="flex items-center justify-center gap-4 mt-8 border-b border-gray-200 dark:border-gray-700">
+                    <!-- Tabs will be generated by JS -->
+                </div>
+            </div>
+
+            <!-- Project Cards Grid -->
+            <div id="project-cards-container" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 flex flex-wrap justify-center gap-8">
+                <!-- Cards will be generated by JS -->
+            </div>
+        </section>
+
+        <!-- Floating Preview -->
+        <div id="floating-preview" class="hidden lg:block fixed w-80 h-auto bg-gray-800 border border-gray-600 rounded-lg shadow-2xl overflow-hidden pointer-events-none z-50 transition-transform duration-100 ease-out">
+            <img id="floating-preview-image" src="" alt="Project Preview" class="w-full h-full object-cover">
+        </div>
+
+        <!-- Project Modal -->
+        <div id="project-modal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 transition-opacity duration-300 opacity-0">
+            <div class="bg-gray-100 dark:bg-gray-900 w-full max-w-6xl h-[90%] rounded-lg shadow-2xl flex flex-col">
+                <div class="flex justify-end p-2 flex-shrink-0">
+                    <button id="modal-close-btn" class="w-10 h-10 rounded-full flex items-center justify-center text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+                <div class="flex-grow p-2 pb-4">
+                    <iframe id="project-modal-iframe" class="w-full h-full border-0 rounded-md" src="" title="Tableau Dashboard" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- Divider -->
+        <hr class="max-w-xl mx-auto border-t border-gray-200 dark:border-gray-700">
+        
+        <!-- Experience Section -->
+        <section id="experience" class="py-20 md:py-32 max-w-4xl mx-auto">
+            <h2 class="section-title scroll-parallax">Experience</h2>
+            <div class="animated-element max-w-3xl mx-auto space-y-12 relative">
+                <!-- Timeline line -->
+                <div class="absolute left-3 top-3 bottom-3 w-0.5 bg-gray-200 dark:bg-gray-700"></div>
+                <!-- Job 1 -->
+                <div class="relative pl-10">
+                    <div class="timeline-dot"></div>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">2022 - 2025</p>
+                    <h3 class="text-xl font-bold">Data Analyst - SOHO VFX</h3>
+                    <ul class="mt-2 space-y-2 text-gray-700 dark:text-gray-300 list-disc list-inside">
+                        <li>Optimized SQL queries, cutting render delays by 30%.</li>
+                        <li>Developed Tableau/Power BI dashboards for performance tracking.</li>
+                        <li>Conducted A/B tests with Python (pandas, numpy).</li>
+                    </ul>
+                </div>
+                 <!-- Job 2 -->
+                <div class="relative pl-10">
+                    <div class="timeline-dot"></div>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">2014 - 2019</p>
+                    <h3 class="text-xl font-bold">PMO Analyst | Data Analyst - Cognizant</h3>
+                    <ul class="mt-2 space-y-2 text-gray-700 dark:text-gray-300 list-disc list-inside">
+                        <li>Enhanced Healthnet queries with SQL, reducing times by 20%.</li>
+                        <li>Built Python tools for patient insights.</li>
+                        <li>Ensured 90% IT uptime.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Divider -->
+        <hr class="max-w-xl mx-auto border-t border-gray-200 dark:border-gray-700">
+
+        <!-- Education & Certifications Section -->
+        <section id="education" class="py-20 md:py-32 max-w-4xl mx-auto">
+            <h2 class="section-title scroll-parallax">Education & Certifications</h2>
+            <div class="animated-element max-w-3xl mx-auto space-y-8">
+                <div>
+                    <h3 class="text-xl font-bold">Master's Degree, University of West London (2019-20)</h3>
+                    <p class="text-gray-700 dark:text-gray-300">Bachelor of Engineering, VTU (2014)</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold">Certifications</h3>
+                    <ul class="mt-2 space-y-2 text-gray-700 dark:text-gray-300 list-disc list-inside">
+                        <li>AWS Certified Solutions Architect - Associate</li>
+                        <li>Tableau Certified Data Analyst</li>
+                        <li>Fundamentals of AI by IBM</li>
+                        <li>Google Data Analytics Professional Certificate</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Divider -->
+        <hr class="max-w-xl mx-auto border-t border-gray-200 dark:border-gray-700">
+
+        <!-- Skills Section -->
+        <section id="skills" class="py-20 md:py-32 max-w-4xl mx-auto">
+            <h2 class="section-title scroll-parallax">Analytical Toolkit</h2>
+            <div class="max-w-4xl mx-auto space-y-8">
+                <div class="animated-element">
+                    <h3 class="skill-category-title">Languages & Databases</h3>
+                    <div class="flex flex-wrap justify-center gap-3 md:gap-4"><span class="skill-badge">SQL</span><span class="skill-badge">Python</span><span class="skill-badge">R (Basic)</span><span class="skill-badge">MongoDB</span></div>
+                </div>
+                <div class="animated-element">
+                    <h3 class="skill-category-title">Python Libraries</h3>
+                    <div class="flex flex-wrap justify-center gap-3 md:gap-4"><span class="skill-badge">Pandas</span><span class="skill-badge">NumPy</span><span class="skill-badge">Matplotlib</span><span class="skill-badge">Seaborn</span></div>
+                </div>
+                <div class="animated-element">
+                    <h3 class="skill-category-title">Visualization & Tools</h3>
+                    <div class="flex flex-wrap justify-center gap-3 md:gap-4"><span class="skill-badge">Tableau</span><span class="skill-badge">Power BI</span><span class="skill-badge">Excel</span><span class="skill-badge">Git</span><span class="skill-badge">Jupyter Notebook</span></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Divider -->
+        <hr class="max-w-xl mx-auto border-t border-gray-200 dark:border-gray-700">
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-20 md:py-32 text-center max-w-4xl mx-auto">
+            <div class="animated-element">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Let's Connect</h2>
+                <p class="max-w-xl mx-auto text-gray-600 dark:text-gray-400 mb-8">I am always excited to discuss new projects, data challenges, or collaboration opportunities. Feel free to reach out!</p>
+                <a href="mailto:varunkammanni@gmail.com" class="cta-button">Say Hello <i class="fas fa-paper-plane ml-2"></i></a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="text-center py-8 border-t border-gray-200 dark:border-gray-800">
+        <p class="text-sm text-gray-500 dark:text-gray-400">© <span id="current-year"></span> Varun Kammanni. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: { 
+            extend: { 
+                fontFamily: { sans: ['Inter', 'sans-serif'], display: ['Poppins', 'sans-serif'], }
+            },
+        },
+        plugins: [
+            function({ addComponents, theme }) {
+                addComponents({
+                    '.nav-link': { '@apply text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-teal-400 transition-colors': {}, },
+                    '.social-icon': { '@apply text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-teal-400 transition-transform duration-300 hover:scale-110': {}, },
+                    '.section-title': { '@apply text-3xl md:text-4xl font-bold text-center mb-12': {}, },
+                    '.tech-badge': { '@apply inline-block bg-blue-100 text-blue-800 dark:bg-teal-900/50 dark:text-teal-300 text-xs font-semibold px-2.5 py-1 rounded-full': {}, },
+                    '.skill-badge': { '@apply bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200 text-sm font-medium px-4 py-2 rounded-md shadow-sm': {}, },
+                    '.skill-category-title': { '@apply text-lg font-semibold text-center mb-4 text-gray-600 dark:text-gray-400': {}, },
+                    '.cta-button': { '@apply inline-block bg-blue-600 text-white font-bold py-3 px-8 rounded-lg text-lg hover:bg-blue-700 dark:bg-teal-500 dark:hover:bg-teal-600 transition-all duration-300 transform hover:scale-105 shadow-lg': {}, },
+                    '.timeline-dot': { '@apply absolute left-0 top-2 h-5 w-5 rounded-full bg-blue-500 dark:bg-teal-400 border-4 border-gray-50 dark:border-gray-900': {}, }
+                })
+            }
+        ]
+      }
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const docEl = document.documentElement;
+
+            // --- Theme Toggler ---
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            const sunIcon = document.getElementById('theme-icon-sun');
+            const moonIcon = document.getElementById('theme-icon-moon');
+            const updateIcon = () => {
+                if (docEl.classList.contains('dark')) { sunIcon.classList.add('hidden'); moonIcon.classList.remove('hidden'); } 
+                else { sunIcon.classList.remove('hidden'); moonIcon.classList.add('hidden'); }
+            };
+            updateIcon();
+            themeToggleBtn.addEventListener('click', () => {
+                docEl.classList.toggle('dark');
+                localStorage.setItem('theme', docEl.classList.contains('dark') ? 'dark' : 'light');
+                updateIcon();
+            });
+
+            // --- Mobile Menu ---
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
+            mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+            mobileMenuLinks.forEach(link => link.addEventListener('click', () => mobileMenu.classList.add('hidden')));
+
+            // --- Header background on scroll ---
+            const header = document.getElementById('header');
+            const handleHeaderScroll = () => {
+                const isScrolled = window.scrollY > 10;
+                header.classList.toggle('bg-white/80', isScrolled);
+                header.classList.toggle('dark:bg-gray-900/80', isScrolled);
+                header.classList.toggle('backdrop-blur-sm', isScrolled);
+                header.classList.toggle('shadow-sm', isScrolled);
+            };
+
+            // --- Scroll Progress Bar & Parallax ---
+            const progressBar = document.getElementById('scroll-progress-bar');
+            const parallaxElements = document.querySelectorAll('.scroll-parallax');
+            const handleScrollEffects = () => {
+                // Progress Bar
+                const scrollTop = window.scrollY;
+                const docHeight = docEl.scrollHeight;
+                const winHeight = window.innerHeight;
+                const scrollPercent = scrollTop / (docHeight - winHeight);
+                const scrollPercentRounded = Math.round(scrollPercent * 100);
+                progressBar.style.height = scrollPercentRounded + '%';
+
+                // Parallax on section titles
+                parallaxElements.forEach(el => {
+                    const rect = el.getBoundingClientRect();
+                    const elCenter = rect.top + rect.height / 2;
+                    const screenCenter = winHeight / 2;
+                    const move = (elCenter - screenCenter) * -0.05;
+                    el.style.transform = `translateY(${move}px)`;
+                });
+            };
+            
+            // --- Attach scroll listeners ---
+            window.addEventListener('scroll', () => {
+                handleHeaderScroll();
+                handleScrollEffects();
+            });
+            // Run on load
+            handleHeaderScroll();
+            handleScrollEffects();
+
+
+            // --- Fade-in on Scroll Animation ---
+            const animatedElements = document.querySelectorAll('.animated-element');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            animatedElements.forEach(el => observer.observe(el));
+            
+            // --- New Project Section Logic ---
+            const projectsData = {
+                tableau: [
+                    { title: "Retail Sales - USA", description: "An in-depth analysis of retail sales data across the United States, identifying trends, top-performing products, and regional patterns.", link: "https://public.tableau.com/views/Section_6_Retail_Sales_USA_17519498877730/Dashboard1?:language=en-GB&:_RPC=true&:display_count=n&:origin=viz_share_link", image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop", tags: ["Sales Analytics", "Dashboard", "USA"] },
+                    { title: "World Demographics", description: "An animated dashboard showcasing the change in world demographics over time, providing insights into population growth and shifts.", link: "https://public.tableau.com/views/Section_5_World_Demo/Animation?:language=en-GB&:_RPC=true&:display_count=n&:origin=viz_share_link", image: "https://images.unsplash.com/photo-1611068813580-b2717556d183?q=80&w=800&auto=format&fit=crop", tags: ["Animation", "Population", "Global"] },
+                    { title: "UK Bank Customers", description: "A story-driven dashboard analyzing the customer base of a UK bank, highlighting key segments and behaviors.", link: "https://public.tableau.com/views/UKBankCustomers_17519326212990/Story1?:language=en-GB&:_RPC=true&publish=yes&:display_count=n&:origin=viz_share_link", image: "https://images.unsplash.com/photo-1591696205602-2f950c41744a?q=80&w=800&auto=format&fit=crop", tags: ["Storytelling", "Finance", "UK"] },
+                    { title: "Clothing Industry - AUS", description: "A comprehensive presentation on the Australian clothing industry, focusing on market trends, sales, and consumer data.", link: "https://public.tableau.com/views/Section_4_Clothes_Industry_Australia/FinalPresentation?:language=en-GB&:_RPC=true&publish=yes&:display_count=n&:origin=viz_share_link", image: "https://images.unsplash.com/photo-1638368925520-74e2f992c905?q=80&w=800&auto=format&fit=crop", tags: ["Retail", "Fashion", "Australia"] },
+                    { title: "Coal Mining Industry", description: "A detailed report on the coal mining industry, visualizing production, employment, and economic impact data.", link: "https://public.tableau.com/views/Section_3_Coal_Mining_V3/Report?:language=en-GB&:_RPC=true&:display_count=n&:origin=viz_share_link", image: "https://images.unsplash.com/photo-1604882355152-1b19a16f3434?q=80&w=800&auto=format&fit=crop", tags: ["Industry Report", "Energy", "Data Viz"] }
+                ],
+                sql: [{ title: "Work In Progress", description: "Advanced SQL projects are currently under development. Please check back soon for updates.", image: "https://images.unsplash.com/photo-1593421534237-79116a35079a?q=80&w=800&auto=format&fit=crop", tags: ["Coming Soon"] }],
+                python: [{ title: "Work In Progress", description: "Python-based data analysis and machine learning projects are being prepared. Please check back soon.", image: "https://images.unsplash.com/photo-1614741118887-7a4ee193a5fa?q=80&w=800&auto=format&fit=crop", tags: ["Coming Soon"] }],
+                others: [{ title: "Work In Progress", description: "A collection of other data-related projects will be showcased here shortly. Stay tuned!", image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=800&auto=format&fit=crop", tags: ["Coming Soon"] }]
+            };
+
+            const categoryTabsContainer = document.getElementById('project-category-tabs');
+            const cardsContainer = document.getElementById('project-cards-container');
+            const projectModal = document.getElementById('project-modal');
+            const modalIframe = document.getElementById('project-modal-iframe');
+            const modalCloseBtn = document.getElementById('modal-close-btn');
+            const floatingPreview = document.getElementById('floating-preview');
+            const floatingPreviewImage = document.getElementById('floating-preview-image');
+
+            let activeCategory = 'tableau';
+
+            function renderProjects() {
+                // Render category tabs
+                categoryTabsContainer.innerHTML = '';
+                Object.keys(projectsData).forEach(category => {
+                    const isActive = category === activeCategory;
+                    const tab = document.createElement('button');
+                    tab.className = `capitalize py-2 px-1 font-semibold transition-colors duration-300 border-b-2 ${isActive ? 'text-teal-400 border-teal-400' : 'text-gray-400 border-transparent hover:text-white hover:border-white'}`;
+                    tab.textContent = category;
+                    tab.dataset.category = category;
+                    tab.addEventListener('click', () => {
+                        activeCategory = category;
+                        renderProjects();
+                    });
+                    categoryTabsContainer.appendChild(tab);
+                });
+
+                // Render project cards
+                cardsContainer.innerHTML = '';
+                projectsData[activeCategory].forEach((project, index) => {
+                    const isWIP = project.link === undefined;
+                    const card = document.createElement('div');
+                    card.className = `project-card bg-white dark:bg-gray-800/50 p-6 rounded-lg border border-gray-200 dark:border-gray-700 w-full sm:w-80 flex flex-col justify-between transition-all duration-300 shadow-sm hover:shadow-lg hover:-translate-y-1`;
+                    card.dataset.index = index;
+                    card.dataset.category = activeCategory;
+
+                    if (isWIP) {
+                        card.classList.add('opacity-60', 'cursor-default');
+                    } else {
+                        card.classList.add('cursor-pointer');
+                    }
+
+                    card.innerHTML = `
+                        <div>
+                            <h3 class="text-xl font-bold mb-2 text-gray-900 dark:text-white">${project.title}</h3>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm mb-4 h-20">${project.description}</p>
+                        </div>
+                        <div class="flex flex-wrap gap-2 mt-auto pt-4 border-t border-gray-200 dark:border-gray-700">
+                            ${project.tags.map(tag => `<span class="tech-badge">${tag}</span>`).join('')}
+                        </div>
+                    `;
+
+                    if (!isWIP) {
+                        card.addEventListener('mouseenter', handleCardMouseEnter);
+                        card.addEventListener('mousemove', handleCardMouseMove);
+                        card.addEventListener('mouseleave', handleCardMouseLeave);
+                        card.addEventListener('click', handleCardClick);
+                    }
+
+                    cardsContainer.appendChild(card);
+                });
+            }
+
+            function handleCardMouseEnter(event) {
+                const card = event.currentTarget;
+                const { category, index } = card.dataset;
+                const project = projectsData[category][index];
+                floatingPreviewImage.src = project.image;
+                floatingPreview.classList.remove('hidden');
+            }
+
+            function handleCardMouseMove(event) {
+                // Position the preview next to the cursor with an offset
+                floatingPreview.style.transform = `translate(${event.clientX + 20}px, ${event.clientY}px)`;
+            }
+
+            function handleCardMouseLeave() {
+                floatingPreview.classList.add('hidden');
+            }
+
+            function handleCardClick(event) {
+                const card = event.currentTarget;
+                const { category, index } = card.dataset;
+                const project = projectsData[category][index];
+
+                modalIframe.src = project.link;
+                projectModal.classList.remove('hidden');
+                setTimeout(() => projectModal.style.opacity = 1, 10);
+            }
+
+            modalCloseBtn.addEventListener('click', () => {
+                projectModal.style.opacity = 0;
+                setTimeout(() => {
+                    projectModal.classList.add('hidden');
+                    modalIframe.src = ""; // Stop video/dashboard from running in background
+                }, 300);
+            });
+            
+            renderProjects();
+            
+            // --- Footer Year ---
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+        });
+    </script>
 </body>
 </html>
