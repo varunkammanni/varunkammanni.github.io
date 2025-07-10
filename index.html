@@ -331,7 +331,7 @@
             const header = document.getElementById('header');
             const handleHeaderScroll = () => {
                 const isScrolled = window.scrollY > 10;
-                header.classList.add('bg-black', 'text-white');
+                header.classList.add('bg-gray-800', 'text-white');
                 header.classList.remove('bg-white/80', 'dark:bg-gray-900/80');
                 header.classList.toggle('backdrop-blur-sm', isScrolled);
                 header.classList.toggle('shadow-sm', isScrolled);
@@ -384,11 +384,11 @@
             // --- New Project Section Logic ---
             const projectsData = {
                 tableau: [
-                    { title: "Retail Sales - USA", description: "An in-depth analysis of retail sales data across the United States, identifying trends, top-performing products, and regional patterns.", link: "https://public.tableau.com/views/Section_6_Retail_Sales_USA_17519498877730/Dashboard1?:language=en-GB&:embed=y&:display_count=n&:origin=viz_share_link", image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop", tags: ["Sales Analytics", "Dashboard", "USA"] },
-                    { title: "World Demographics", description: "An animated dashboard showcasing the change in world demographics over time, providing insights into population growth and shifts.", link: "https://public.tableau.com/views/Section_5_World_Demo/Animation?:language=en-GB&:embed=y&:display_count=n&:origin=viz_share_link", image: "https://images.unsplash.com/photo-1611068813580-b2717556d183?q=80&w=800&auto=format&fit=crop", tags: ["Animation", "Population", "Global"] },
-                    { title: "UK Bank Customers", description: "A story-driven dashboard analyzing the customer base of a UK bank, highlighting key segments and behaviors.", link: "https://public.tableau.com/views/UKBankCustomers_17519326212990/Story1?:language=en-GB&:embed=y&:display_count=n&:origin=viz_share_link", image: "https://images.unsplash.com/photo-1591696205602-2f950c41744a?q=80&w=800&auto=format&fit=crop", tags: ["Storytelling", "Finance", "UK"] },
-                    { title: "Clothing Industry - AUS", description: "A comprehensive presentation on the Australian clothing industry, focusing on market trends, sales, and consumer data.", link: "https://public.tableau.com/views/Section_4_Clothes_Industry_Australia/FinalPresentation?:language=en-GB&:embed=y&:display_count=n&:origin=viz_share_link", image: "https://images.unsplash.com/photo-1638368925520-74e2f992c905?q=80&w=800&auto=format&fit=crop", tags: ["Retail", "Fashion", "Australia"] },
-                    { title: "Coal Mining Industry", description: "A detailed report on the coal mining industry, visualizing production, employment, and economic impact data.", link: "https://public.tableau.com/views/Section_3_Coal_Mining_V3/Report?:language=en-GB&:embed=y&:display_count=n&:origin=viz_share_link", image: "https://images.unsplash.com/photo-1604882355152-1b19a16f3434?q=80&w=800&auto=format&fit=crop", tags: ["Industry Report", "Energy", "Data Viz"] }
+                    { title: "Retail Sales - USA", description: "An in-depth analysis of retail sales data across the United States, identifying trends, top-performing products, and regional patterns.", link: "https://public.tableau.com/views/Section_6_Retail_Sales_USA_17519498877730/Dashboard1?:language=en-GB&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link", image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop", tags: ["Sales Analytics", "Dashboard", "USA"] },
+                    { title: "World Demographics", description: "An animated dashboard showcasing the change in world demographics over time, providing insights into population growth and shifts.", link: "https://public.tableau.com/views/Section_5_World_Demo/Animation?:language=en-GB&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link", image: "https://images.unsplash.com/photo-1611068813580-b2717556d183?q=80&w=800&auto=format&fit=crop", tags: ["Animation", "Population", "Global"] },
+                    { title: "UK Bank Customers", description: "A story-driven dashboard analyzing the customer base of a UK bank, highlighting key segments and behaviors.", link: "https://public.tableau.com/views/UKBankCustomers_17519326212990/Story1?:language=en-GB&publish=yes&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link", image: "https://images.unsplash.com/photo-1591696205602-2f950c41744a?q=80&w=800&auto=format&fit=crop", tags: ["Storytelling", "Finance", "UK"] },
+                    { title: "Clothing Industry - AUS", description: "A comprehensive presentation on the Australian clothing industry, focusing on market trends, sales, and consumer data.", link: "https://public.tableau.com/views/Section_4_Clothes_Industry_Australia/FinalPresentation?:language=en-GB&publish=yes&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link", image: "https://images.unsplash.com/photo-1638368925520-74e2f992c905?q=80&w=800&auto=format&fit=crop", tags: ["Retail", "Fashion", "Australia"] },
+                    { title: "Coal Mining Industry", description: "A detailed report on the coal mining industry, visualizing production, employment, and economic impact data.", link: "https://public.tableau.com/views/Section_3_Coal_Mining_V3/Report?:language=en-GB&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link", image: "https://images.unsplash.com/photo-1604882355152-1b19a16f3434?q=80&w=800&auto=format&fit=crop", tags: ["Industry Report", "Energy", "Data Viz"] }
                 ],
                 sql: [{ title: "Work In Progress", description: "Advanced SQL projects are currently under development. Please check back soon for updates.", image: "https://images.unsplash.com/photo-1593421534237-79116a35079a?q=80&w=800&auto=format&fit=crop", tags: ["Coming Soon"] }],
                 python: [{ title: "Work In Progress", description: "Python-based data analysis and machine learning projects are being prepared. Please check back soon.", image: "https://images.unsplash.com/photo-1614741118887-7a4ee193a5fa?q=80&w=800&auto=format&fit=crop", tags: ["Coming Soon"] }],
@@ -478,7 +478,11 @@
                 const card = event.currentTarget;
                 const { category, index } = card.dataset;
                 const project = projectsData[category][index];
-
+                if (category === 'tableau' && project.link) {
+                    window.open(project.link, '_blank');
+                    return;
+                }
+                // For other categories, keep existing modal logic (if needed)
                 modalIframe.src = project.link;
                 projectModal.classList.remove('hidden');
                 setTimeout(() => projectModal.style.opacity = 1, 10);
