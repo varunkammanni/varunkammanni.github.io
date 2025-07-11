@@ -110,18 +110,18 @@
         <section id="home" class="min-h-screen flex flex-col items-center justify-center text-center relative">
             
             <!-- Stats Block -->
-            <div class="hidden lg:block absolute top-1/2 -translate-y-1/2 right-0 space-y-8 p-6 bg-slate-50/80 dark:bg-slate-900/80 backdrop-blur-sm border border-slate-200 dark:border-slate-800 rounded-xl shadow-lg transition-all duration-300 hover:shadow-2xl hover:scale-105">
-                <div class="text-center">
-                    <p class="text-4xl font-bold text-slate-900 dark:text-white">4+</p>
-                    <p class="text-sm text-slate-600 dark:text-slate-400">Years of Experience</p>
+            <div class="hidden lg:flex flex-col gap-8 absolute top-1/2 -translate-y-1/2 right-0">
+                <div class="stat-item text-right">
+                    <p class="text-3xl font-bold text-slate-900 dark:text-white">4+</p>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Years of Experience</p>
                 </div>
-                 <div class="text-center">
-                    <p class="text-4xl font-bold text-slate-900 dark:text-white">12+</p>
-                    <p class="text-sm text-slate-600 dark:text-slate-400">Completed Projects</p>
+                 <div class="stat-item text-right">
+                    <p class="text-3xl font-bold text-slate-900 dark:text-white">12+</p>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Completed Projects</p>
                 </div>
-                 <div class="text-center">
-                    <p class="text-4xl font-bold text-slate-900 dark:text-white">10K+</p>
-                    <p class="text-sm text-slate-600 dark:text-slate-400">Hours Worked</p>
+                 <div class="stat-item text-right">
+                    <p class="text-3xl font-bold text-slate-900 dark:text-white">10K+</p>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Hours Worked</p>
                 </div>
             </div>
 
@@ -167,8 +167,8 @@
             </div>
         </section>
 
-        <!-- Floating Preview Image -->
-        <div id="floating-preview" class="hidden lg:block fixed w-80 aspect-video bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg shadow-2xl overflow-hidden pointer-events-none z-50 transition-all duration-100 ease-out">
+        <!-- Floating Preview Image for Project Hover -->
+        <div id="floating-preview" class="hidden lg:block fixed w-80 aspect-video bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg shadow-2xl overflow-hidden pointer-events-none z-50 transition-transform duration-100 ease-out">
             <img id="floating-preview-image" src="" alt="Project Preview" class="w-full h-full object-cover">
         </div>
 
@@ -206,6 +206,24 @@
         <!-- Divider -->
         <hr class="max-w-xl mx-auto border-t border-slate-200 dark:border-slate-800">
 
+        <!-- Client Logos Section -->
+        <section id="clients" class="py-16">
+            <h3 class="text-center text-sm font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-10">
+                Companies & Projects I've Contributed To
+            </h3>
+            <div class="max-w-5xl mx-auto flex flex-wrap justify-center items-center gap-x-12 sm:gap-x-16 gap-y-8">
+                <img src="assets/img/B&W/soho_vfx.png" alt="SOHO VFX Logo" class="client-logo">
+                <img src="assets/img/B&W/marvel.png" alt="Marvel Logo" class="client-logo">
+                <img src="assets/img/B&W/cognizant.png" alt="Cognizant Logo" class="client-logo">
+                <img src="assets/img/B&W/health_net.png" alt="Health Net Logo" class="client-logo">
+                <img src="assets/img/B&W/rev.png" alt="REV Logo" class="client-logo dark:invert">
+                <img src="assets/img/B&W/allegis_group.png" alt="Allegis Group Logo" class="client-logo">
+            </div>
+        </section>
+
+        <!-- Divider -->
+        <hr class="max-w-xl mx-auto border-t border-slate-200 dark:border-slate-800">
+
         <!-- Education & Certifications Section -->
         <section id="education" class="py-20 md:py-32 max-w-4xl mx-auto">
             <h2 class="section-title scroll-parallax">Education & Certifications</h2>
@@ -213,12 +231,12 @@
                 <!-- Education Block -->
                 <div class="space-y-6">
                     <div>
-                        <h3 class="text-xl font-bold">Master's Degree</h3>
+                        <h3 class="text-xl font-bold">Master of Science, Project Management</h3>
                         <p class="text-slate-700 dark:text-slate-300">University of West London</p>
                         <p class="text-sm text-slate-500 dark:text-slate-400">2019 - 2020</p>
                     </div>
                     <div>
-                        <h3 class="text-xl font-bold">Bachelor of Engineering</h3>
+                        <h3 class="text-xl font-bold">Bachelor of Engineering, ECE</h3>
                         <p class="text-slate-700 dark:text-slate-300">Visvesvaraya Technological University (VTU)</p>
                         <p class="text-sm text-slate-500 dark:text-slate-400">2010 - 2014</p>
                     </div>
@@ -241,7 +259,7 @@
 
         <!-- Skills Section -->
         <section id="skills" class="py-20 md:py-32 max-w-4xl mx-auto">
-            <h2 class="section-title scroll- parallax">Analytical Toolkit</h2>
+            <h2 class="section-title scroll-parallax">Analytical Toolkit</h2>
             <div class="max-w-4xl mx-auto space-y-8">
                 <div class="animated-element">
                     <h3 class="skill-category-title">Languages & Databases</h3>
@@ -301,7 +319,6 @@
                   slate: { 50: '#f8fafc', 100: '#f1f5f9', 200: '#e2e8f0', 300: '#cbd5e1', 400: '#94a3b8', 500: '#64748b', 600: '#475569', 700: '#334155', 800: '#1e293b', 900: '#0f172a', 950: '#020617', }
                 },
                 fontFamily: { sans: ['Inter', 'sans-serif'], display: ['Poppins', 'sans-serif'], },
-                aspectRatio: { 'video': '16 / 9' },
             },
         },
         plugins: [
@@ -315,7 +332,9 @@
                     '.skill-category-title': { '@apply text-lg font-semibold text-center mb-4 text-slate-600 dark:text-slate-400': {}, },
                     '.cta-button': { '@apply inline-block bg-slate-800 text-white font-bold py-3 px-8 rounded-lg text-lg hover:bg-slate-950 dark:bg-slate-200 dark:text-slate-900 dark:hover:bg-white transition-all duration-300 transform hover:scale-105 shadow-lg': {}, },
                     '.timeline-dot': { '@apply absolute left-0 top-2 h-5 w-5 rounded-full bg-slate-500 border-4 border-white dark:border-slate-950': {}, },
-                    '.contact-item': { '@apply flex items-center text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 font-medium transition-colors': {} }
+                    '.contact-item': { '@apply flex items-center text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 font-medium transition-colors': {} },
+                    '.client-logo': { '@apply h-7 sm:h-8 object-contain max-w-[8rem] sm:max-w-[10rem] filter grayscale opacity-70 transition-all duration-300 hover:grayscale-0 hover:opacity-100': {} },
+                    '.stat-item': { '@apply transition-all duration-300 hover:scale-110': {} }
                 })
             }
         ]
@@ -397,7 +416,7 @@
             
             // --- Project Section Logic ---
             const projects = [
-                { title: "Retail Sales - USA", description: "An in-depth analysis of retail sales data across the United States, identifying trends and regional patterns.", link: "https://public.tableau.com/views/Section_6_Retail_Sales_USA_17519498877730/Dashboard1?:language=en-GB&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link", thumbnail: "assets/img/Retail_Sales_USA.png", image: "assets/img/Retail_Sales_USA.png", tags: ["Python", "Numpy", "Pandas", "Mysql", "Tableau"] },
+                { title: "Retail Sales - USA", description: "An in-depth analysis of retail sales data, identifying trends and regional patterns.", link: "https://public.tableau.com/views/Section_6_Retail_Sales_USA_17519498877730/Dashboard1?:language=en-GB&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link", thumbnail: "assets/img/Retail_Sales_USA.png", image: "assets/img/Retail_Sales_USA.png", tags: ["Python", "Numpy", "Pandas", "Mysql", "Tableau"] },
                 { title: "Coal Mining Industry", description: "A detailed report on the coal mining industry, visualizing production, employment, and economic impact data.", link: "https://public.tableau.com/views/Section_3_Coal_Mining_V3/Report?:language=en-GB&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link", thumbnail: "assets/img/Coal Mining Industry.png", image: "assets/img/Coal Mining Industry.png", tags: ["Python", "Numpy", "Pandas", "matplotlib", "Tableau", "Excel", "PowerBI"] },
                 { title: "UK Bank Customers", description: "A story-driven dashboard analyzing the customer base of a UK bank, highlighting key segments and behaviors.", link: "https://public.tableau.com/views/UKBankCustomers_17519326212990/Story1?:language=en-GB&publish=yes&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link", thumbnail: "assets/img/UK Bank Customers.png", image: "assets/img/UK Bank Customers.png", tags: ["Tableau", "Excel", "Mysql", "Python", "Numpy", "Pandas"] },
                 { title: "World Demographics", description: "An animated dashboard showcasing population change over time, providing insights into growth and shifts.", link: "https://public.tableau.com/views/Section_5_World_Demo/Animation?:language=en-GB&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link", thumbnail: "assets/img/World_Demographics.png", image: "assets/img/World_Demographics.png", tags: ["Python", "Numpy", "Pandas", "Tableau", "Excel", "PowerBI"] },
@@ -416,9 +435,8 @@
                     cardWrapper.href = project.link;
                     cardWrapper.target = "_blank";
                     cardWrapper.rel = "noopener noreferrer";
-                    cardWrapper.dataset.index = index; // Store index for hover lookup
+                    cardWrapper.dataset.index = index; 
 
-                    // Attach event listeners
                     cardWrapper.addEventListener('mouseenter', handleCardMouseEnter);
                     cardWrapper.addEventListener('mousemove', handleCardMouseMove);
                     cardWrapper.addEventListener('mouseleave', handleCardMouseLeave);
