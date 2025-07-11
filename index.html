@@ -44,14 +44,7 @@
         .scroll-parallax {
             transition: transform 0.5s ease-out;
         }
-        .gradient-bg {
-            background-image: radial-gradient(circle at 10% 20%, rgba(59, 130, 246, 0.05) 0%, transparent 40%),
-                              radial-gradient(circle at 90% 85%, rgba(13, 148, 136, 0.05) 0%, transparent 40%);
-        }
-        .dark .gradient-bg {
-            background-image: radial-gradient(circle at 10% 20%, rgba(59, 130, 246, 0.1) 0%, transparent 40%),
-                              radial-gradient(circle at 90% 85%, rgba(13, 148, 136, 0.1) 0%, transparent 40%);
-        }
+        /* Removed gradient-bg for a simpler look */
         @keyframes bounce {
             0%, 100% { transform: translateY(-15%); animation-timing-function: cubic-bezier(0.8,0,1,1); }
             50% { transform: translateY(0); animation-timing-function: cubic-bezier(0,0,0.2,1); }
@@ -61,33 +54,31 @@
         }
     </style>
 </head>
-<body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200 transition-colors duration-300">
+<body class="bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-300 transition-colors duration-300">
 
     <!-- Scroll Progress Indicator -->
-    <div id="scroll-progress-container" class="hidden md:block fixed top-1/2 -translate-y-1/2 left-5 lg:left-8 h-48 w-1 bg-gray-200 dark:bg-gray-700 rounded-full z-50">
-        <div id="scroll-progress-bar" class="w-full h-0 bg-blue-500 dark:bg-teal-400 rounded-full transition-all duration-100 ease-linear"></div>
+    <div id="scroll-progress-container" class="hidden md:block fixed top-1/2 -translate-y-1/2 left-5 lg:left-8 h-48 w-1 bg-slate-200 dark:bg-slate-700 rounded-full z-50">
+        <div id="scroll-progress-bar" class="w-full h-0 bg-slate-600 dark:bg-slate-400 rounded-full transition-all duration-100 ease-linear"></div>
     </div>
 
-    <div class="fixed inset-0 -z-10 gradient-bg"></div>
-
     <!-- Header & Navigation -->
-    <header id="header" class="fixed top-0 left-0 right-0 z-40 transition-all duration-300 bg-gray-800 text-white">
+    <header id="header" class="fixed top-0 left-0 right-0 z-40 transition-all duration-300 bg-white/80 dark:bg-slate-950/80">
         <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <a href="#home" class="text-xl font-bold font-['Poppins'] tracking-tight text-white">Varun Kammanni</a>
+                <a href="#home" class="text-xl font-bold font-['Poppins'] tracking-tight">Varun Kammanni</a>
                 <nav class="hidden md:flex items-center space-x-6 lg:space-x-8">
-                    <a href="#projects" class="nav-link text-white">Projects</a>
-                    <a href="#experience" class="nav-link text-white">Experience</a>
-                    <a href="#education" class="nav-link text-white">Education</a>
-                    <a href="#skills" class="nav-link text-white">Skills</a>
-                    <a href="#contact" class="nav-link text-white">Contact</a>
+                    <a href="#projects" class="nav-link">Projects</a>
+                    <a href="#experience" class="nav-link">Experience</a>
+                    <a href="#education" class="nav-link">Education</a>
+                    <a href="#skills" class="nav-link">Skills</a>
+                    <a href="#contact" class="nav-link">Contact</a>
                 </nav>
                 <div class="flex items-center space-x-4">
-                    <button id="theme-toggle" aria-label="Toggle color theme" class="w-10 h-10 rounded-lg flex items-center justify-center text-gray-200 hover:bg-gray-800 transition-colors">
+                    <button id="theme-toggle" aria-label="Toggle color theme" class="w-10 h-10 rounded-lg flex items-center justify-center text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
                         <i id="theme-icon-sun" class="fas fa-sun"></i>
                         <i id="theme-icon-moon" class="fas fa-moon hidden"></i>
                     </button>
-                    <button id="mobile-menu-button" aria-label="Open navigation menu" aria-controls="mobile-menu" aria-expanded="false" class="md:hidden w-10 h-10 flex items-center justify-center text-gray-200">
+                    <button id="mobile-menu-button" aria-label="Open navigation menu" aria-controls="mobile-menu" aria-expanded="false" class="md:hidden w-10 h-10 flex items-center justify-center text-slate-500">
                         <i class="fas fa-bars text-xl"></i>
                     </button>
                 </div>
@@ -96,7 +87,7 @@
     </header>
 
     <!-- Mobile Menu -->
-    <div id="mobile-menu" class="hidden fixed inset-0 bg-gray-50 dark:bg-gray-900 z-30 p-4">
+    <div id="mobile-menu" class="hidden fixed inset-0 bg-white dark:bg-slate-950 z-30 p-4">
         <div class="flex flex-col items-center justify-center h-full space-y-8">
             <a href="#home" class="mobile-menu-link text-2xl font-semibold">Home</a>
             <a href="#projects" class="mobile-menu-link text-2xl font-semibold">Projects</a>
@@ -113,9 +104,9 @@
         <section id="home" class="min-h-screen flex flex-col items-center justify-center text-center relative">
             <div class="w-full max-w-4xl">
                 <div class="animated-element">
-                    <h1 class="text-5xl md:text-7xl font-bold tracking-tighter mb-4">Varun Kammanni</h1>
-                    <p class="text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                        <span class="text-2xl md:text-2xl font-bold">Data Analyst</span><br/>
+                    <h1 class="text-5xl md:text-7xl font-bold tracking-tighter mb-4 text-slate-900 dark:text-slate-100">Varun Kammanni</h1>
+                    <p class="text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+                        <span class="text-2xl md:text-2xl font-bold text-slate-800 dark:text-slate-200">Data Analyst</span><br/>
                         <span class="block">Turning Data into Actionable Insights</span>
                     </p>
                     <div class="mt-8 flex justify-center space-x-6">
@@ -125,58 +116,52 @@
                     </div>
                 </div>
                 
-                <div class="animated-element mt-8 max-w-3xl mx-auto text-center leading-relaxed text-gray-700 dark:text-gray-300">
+                <div class="animated-element mt-12 max-w-3xl mx-auto text-center leading-relaxed text-slate-700 dark:text-slate-300">
                      <p>
-                        I am a detail-oriented analyst with a passion for uncovering the stories hidden within data. My expertise lies in cleaning, transforming, and visualizing complex datasets to drive data-informed decision-making. With a strong background in SQL, Python, and data visualization tools like Tableau and Power BI, I excel at turning raw numbers into clear, actionable insights. I am committed to leveraging data to solve business problems and am always eager to learn new techniques and technologies in the ever-evolving field of data analytics.
+                        I am a detail-oriented analyst with a passion for uncovering the stories hidden within data. My expertise lies in cleaning, transforming, and visualizing complex datasets to drive data-informed decision-making. With a strong background in SQL, Python, and data visualization tools like Tableau and Power BI, I excel at turning raw numbers into clear, actionable insights.
                     </p>
                 </div>
             </div>
             <a href="#projects" class="absolute bottom-10 animate-bounce-slow">
-                <div class="w-10 h-16 rounded-full border-2 border-gray-400 dark:border-gray-500 flex items-center justify-center">
-                    <i class="fas fa-arrow-down text-gray-500 dark:text-gray-400"></i>
+                <div class="w-10 h-16 rounded-full border-2 border-slate-300 dark:border-slate-600 flex items-center justify-center">
+                    <i class="fas fa-arrow-down text-slate-500 dark:text-slate-400"></i>
                 </div>
             </a>
         </section>
 
         <!-- Divider -->
-        <hr class="max-w-xl mx-auto border-t border-gray-200 dark:border-gray-700">
+        <hr class="max-w-xl mx-auto border-t border-slate-200 dark:border-slate-800">
 
         <!-- Projects Section -->
         <section id="projects" class="py-20 md:py-32">
             <!-- Section Header -->
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16 text-center">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4 flex items-center justify-center gap-4">
-                    <i class="fas fa-star-of-life text-teal-400 text-2xl"></i>
-                    <span>Selected Projects</span>
+                <h2 class="section-title">
+                    Selected Projects
                 </h2>
             </div>
 
-            <!-- Centered Project Cards Container -->
+            <!-- Project Cards Container -->
             <div id="project-cards-container" class="max-w-4xl mx-auto px-4 flex flex-col items-center gap-8">
                 <!-- Cards will be generated by JS here -->
             </div>
         </section>
 
-        <!-- Floating Preview (for hover effect) -->
-        <div id="floating-preview" class="hidden lg:block fixed w-80 aspect-video bg-gray-800 border border-gray-600 rounded-lg shadow-2xl overflow-hidden pointer-events-none z-50 transition-transform duration-100 ease-out">
-            <img id="floating-preview-image" src="" alt="Project Preview" class="w-full h-full object-cover">
-        </div>
-
         <!-- Divider -->
-        <hr class="max-w-xl mx-auto border-t border-gray-200 dark:border-gray-700">
+        <hr class="max-w-xl mx-auto border-t border-slate-200 dark:border-slate-800">
         
         <!-- Experience Section -->
         <section id="experience" class="py-20 md:py-32 max-w-4xl mx-auto">
             <h2 class="section-title scroll-parallax">Experience</h2>
             <div class="animated-element max-w-3xl mx-auto space-y-12 relative">
                 <!-- Timeline line -->
-                <div class="absolute left-3 top-3 bottom-3 w-0.5 bg-gray-200 dark:bg-gray-700"></div>
+                <div class="absolute left-3 top-3 bottom-3 w-0.5 bg-slate-200 dark:bg-slate-700"></div>
                 <!-- Job 1 -->
                 <div class="relative pl-10">
                     <div class="timeline-dot"></div>
-                    <p class="text-sm text-gray-500 dark:text-gray-400">2022 - 2025</p>
+                    <p class="text-sm text-slate-500 dark:text-slate-400">2022 - 2025</p>
                     <h3 class="text-xl font-bold">Data Analyst - SOHO VFX</h3>
-                    <ul class="mt-2 space-y-2 text-gray-700 dark:text-gray-300 list-disc list-inside">
+                    <ul class="mt-2 space-y-2 text-slate-700 dark:text-slate-300 list-disc list-inside">
                         <li>Optimized SQL queries, cutting render delays by 30%.</li>
                         <li>Developed Tableau/Power BI dashboards for performance tracking.</li>
                         <li>Conducted A/B tests with Python (pandas, numpy).</li>
@@ -185,9 +170,9 @@
                  <!-- Job 2 -->
                 <div class="relative pl-10">
                     <div class="timeline-dot"></div>
-                    <p class="text-sm text-gray-500 dark:text-gray-400">2014 - 2019</p>
+                    <p class="text-sm text-slate-500 dark:text-slate-400">2014 - 2019</p>
                     <h3 class="text-xl font-bold">PMO Analyst | Data Analyst - Cognizant</h3>
-                    <ul class="mt-2 space-y-2 text-gray-700 dark:text-gray-300 list-disc list-inside">
+                    <ul class="mt-2 space-y-2 text-slate-700 dark:text-slate-300 list-disc list-inside">
                         <li>Enhanced Healthnet queries with SQL, reducing times by 20%.</li>
                         <li>Built Python tools for patient insights.</li>
                         <li>Ensured 90% IT uptime.</li>
@@ -197,7 +182,7 @@
         </section>
 
         <!-- Divider -->
-        <hr class="max-w-xl mx-auto border-t border-gray-200 dark:border-gray-700">
+        <hr class="max-w-xl mx-auto border-t border-slate-200 dark:border-slate-800">
 
         <!-- Education & Certifications Section -->
         <section id="education" class="py-20 md:py-32 max-w-4xl mx-auto">
@@ -205,11 +190,11 @@
             <div class="animated-element max-w-3xl mx-auto space-y-8">
                 <div>
                     <h3 class="text-xl font-bold">Master's Degree, University of West London (2019-20)</h3>
-                    <p class="text-gray-700 dark:text-gray-300">Bachelor of Engineering, VTU (2014)</p>
+                    <p class="text-slate-700 dark:text-slate-300">Bachelor of Engineering, VTU (2014)</p>
                 </div>
                 <div>
                     <h3 class="text-xl font-bold">Certifications</h3>
-                    <ul class="mt-2 space-y-2 text-gray-700 dark:text-gray-300 list-disc list-inside">
+                    <ul class="mt-2 space-y-2 text-slate-700 dark:text-slate-300 list-disc list-inside">
                         <li>AWS Certified Solutions Architect - Associate</li>
                         <li>Tableau Certified Data Analyst</li>
                         <li>Fundamentals of AI by IBM</li>
@@ -220,7 +205,7 @@
         </section>
 
         <!-- Divider -->
-        <hr class="max-w-xl mx-auto border-t border-gray-200 dark:border-gray-700">
+        <hr class="max-w-xl mx-auto border-t border-slate-200 dark:border-slate-800">
 
         <!-- Skills Section -->
         <section id="skills" class="py-20 md:py-32 max-w-4xl mx-auto">
@@ -242,20 +227,20 @@
         </section>
 
         <!-- Divider -->
-        <hr class="max-w-xl mx-auto border-t border-gray-200 dark:border-gray-700">
+        <hr class="max-w-xl mx-auto border-t border-slate-200 dark:border-slate-800">
 
         <!-- Contact Section -->
         <section id="contact" class="py-20 md:py-32 text-center max-w-4xl mx-auto">
             <div class="animated-element">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">Let's Connect</h2>
-                <p class="max-w-xl mx-auto text-gray-600 dark:text-gray-400 mb-8">I am always excited to discuss new projects, data challenges, or collaboration opportunities. Feel free to reach out!</p>
+                <h2 class="section-title">Let's Connect</h2>
+                <p class="max-w-xl mx-auto text-slate-600 dark:text-slate-400 mb-8">I am always excited to discuss new projects, data challenges, or collaboration opportunities. Feel free to reach out!</p>
                 <a href="mailto:varunkammanni@gmail.com" class="cta-button">Say Hello <i class="fas fa-paper-plane ml-2"></i></a>
             </div>
         </section>
     </main>
 
-    <footer class="text-center py-8 border-t border-gray-200 dark:border-gray-800">
-        <p class="text-sm text-gray-500 dark:text-gray-400">© <span id="current-year"></span> Varun Kammanni. All Rights Reserved.</p>
+    <footer class="text-center py-8 border-t border-slate-200 dark:border-slate-800">
+        <p class="text-sm text-slate-500 dark:text-slate-400">© <span id="current-year"></span> Varun Kammanni. All Rights Reserved.</p>
     </footer>
 
     <script>
@@ -263,6 +248,9 @@
         darkMode: 'class',
         theme: { 
             extend: { 
+                colors: {
+                  slate: { 50: '#f8fafc', 100: '#f1f5f9', 200: '#e2e8f0', 300: '#cbd5e1', 400: '#94a3b8', 500: '#64748b', 600: '#475569', 700: '#334155', 800: '#1e293b', 900: '#0f172a', 950: '#020617', }
+                },
                 fontFamily: { sans: ['Inter', 'sans-serif'], display: ['Poppins', 'sans-serif'], },
                 aspectRatio: { 'video': '16 / 9' }
             },
@@ -270,14 +258,14 @@
         plugins: [
             function({ addComponents, theme }) {
                 addComponents({
-                    '.nav-link': { '@apply text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-teal-400 transition-colors': {}, },
-                    '.social-icon': { '@apply text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-teal-400 transition-transform duration-300 hover:scale-110': {}, },
-                    '.section-title': { '@apply text-3xl md:text-4xl font-bold text-center mb-12': {}, },
-                    '.tech-badge': { '@apply inline-block bg-blue-100 text-blue-800 dark:bg-teal-900/50 dark:text-teal-300 text-xs font-semibold px-2.5 py-1 rounded-full': {}, },
-                    '.skill-badge': { '@apply bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200 text-sm font-medium px-4 py-2 rounded-md shadow-sm': {}, },
-                    '.skill-category-title': { '@apply text-lg font-semibold text-center mb-4 text-gray-600 dark:text-gray-400': {}, },
-                    '.cta-button': { '@apply inline-block bg-blue-600 text-white font-bold py-3 px-8 rounded-lg text-lg hover:bg-blue-700 dark:bg-teal-500 dark:hover:bg-teal-600 transition-all duration-300 transform hover:scale-105 shadow-lg': {}, },
-                    '.timeline-dot': { '@apply absolute left-0 top-2 h-5 w-5 rounded-full bg-blue-500 dark:bg-teal-400 border-4 border-gray-50 dark:border-gray-900': {}, }
+                    '.nav-link': { '@apply text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors': {}, },
+                    '.social-icon': { '@apply text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-transform duration-300 hover:scale-110': {}, },
+                    '.section-title': { '@apply text-3xl md:text-4xl font-bold text-center mb-12 text-slate-900 dark:text-slate-100': {}, },
+                    '.tech-badge': { '@apply inline-block bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300 text-xs font-semibold px-2.5 py-1 rounded-full': {}, },
+                    '.skill-badge': { '@apply bg-slate-100 text-slate-800 dark:bg-slate-800 dark:text-slate-200 text-sm font-medium px-4 py-2 rounded-md shadow-sm': {}, },
+                    '.skill-category-title': { '@apply text-lg font-semibold text-center mb-4 text-slate-600 dark:text-slate-400': {}, },
+                    '.cta-button': { '@apply inline-block bg-slate-800 text-white font-bold py-3 px-8 rounded-lg text-lg hover:bg-slate-950 dark:bg-slate-200 dark:text-slate-900 dark:hover:bg-white transition-all duration-300 transform hover:scale-105 shadow-lg': {}, },
+                    '.timeline-dot': { '@apply absolute left-0 top-2 h-5 w-5 rounded-full bg-slate-500 border-4 border-white dark:border-slate-950': {}, }
                 })
             }
         ]
@@ -325,7 +313,10 @@
             const header = document.getElementById('header');
             const handleHeaderScroll = () => {
                 header.classList.toggle('backdrop-blur-sm', window.scrollY > 10);
-                header.classList.toggle('shadow-lg', window.scrollY > 10);
+                header.classList.toggle('shadow-sm', window.scrollY > 10);
+                header.classList.toggle('border-b', window.scrollY > 10);
+                header.classList.toggle('border-slate-200', window.scrollY > 10);
+                header.classList.toggle('dark:border-slate-800', window.scrollY > 10);
             };
 
             // --- Scroll Progress Bar & Parallax ---
@@ -358,13 +349,12 @@
             }, { threshold: 0.1 });
             animatedElements.forEach(el => observer.observe(el));
             
-            // --- UPDATED Project Section Logic ---
+            // --- Project Section Logic ---
             const projects = [
                 { 
                     title: "Retail Sales - USA", 
                     description: "An in-depth analysis of retail sales data across the United States, identifying trends and regional patterns.", 
                     link: "https://public.tableau.com/views/Section_6_Retail_Sales_USA_17519498877730/Dashboard1?:language=en-GB&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link", 
-                    image: "assets/img/Retail_Sales_USA.png", 
                     thumbnail: "assets/img/Retail_Sales_USA.png", 
                     tags: ["Python", "Numpy", "Pandas", "Mysql", "Tableau"]
                 },
@@ -372,7 +362,6 @@
                     title: "World Demographics", 
                     description: "An animated dashboard showcasing population change over time, providing insights into growth and shifts.", 
                     link: "https://public.tableau.com/views/Section_5_World_Demo/Animation?:language=en-GB&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link", 
-                    image: "assets/img/World_Demographics.png", 
                     thumbnail: "assets/img/World_Demographics.png", 
                     tags: ["Python", "Numpy", "Pandas", "Tableau", "Excel", "PowerBI"] 
                 },
@@ -380,7 +369,6 @@
                     title: "UK Bank Customers", 
                     description: "A story-driven dashboard analyzing the customer base of a UK bank, highlighting key segments and behaviors.", 
                     link: "https://public.tableau.com/views/UKBankCustomers_17519326212990/Story1?:language=en-GB&publish=yes&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link", 
-                    image: "assets/img/UK Bank Customers.png", 
                     thumbnail: "assets/img/UK Bank Customers.png", 
                     tags: ["Tableau", "Excel", "Mysql", "Python", "Numpy", "Pandas"]
                 },
@@ -388,51 +376,41 @@
                     title: "Clothing Industry - AUS", 
                     description: "A comprehensive presentation on the Australian clothing industry, focusing on market trends, sales, and consumer data.", 
                     link: "https://public.tableau.com/views/Section_4_Clothes_Industry_Australia/FinalPresentation?:language=en-GB&publish=yes&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link", 
-                    image: "assets/img/Clothing Industry - AUS.png", 
-                    thumbnail: "assets/img/Clothing Industry - AUS.png",
+                    thumbnail: "assets/img/AUS - Clothing Industry - AUS.png",
                     tags: ["Python", "Tableau", "Excel", "Mysql", "Numpy", "Pandas"]
                 },
                 { 
                     title: "Coal Mining Industry", 
                     description: "A detailed report on the coal mining industry, visualizing production, employment, and economic impact data.", 
                     link: "https://public.tableau.com/views/Section_3_Coal_Mining_V3/Report?:language=en-GB&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link", 
-                    image: "assets/img/Coal Mining Industry.png", 
                     thumbnail: "assets/img/Coal Mining Industry.png",
                     tags: ["Python", "Numpy", "Pandas", "matplotlib", "Tableau", "Excel", "PowerBI"] 
                 }
             ];
 
             const cardsContainer = document.getElementById('project-cards-container');
-            const floatingPreview = document.getElementById('floating-preview');
-            const floatingPreviewImage = document.getElementById('floating-preview-image');
 
             function renderProjects() {
                 cardsContainer.innerHTML = '';
-                projects.forEach((project, index) => {
+                projects.forEach(project => {
                     const cardWrapper = document.createElement('a');
                     cardWrapper.className = 'group w-full block';
                     cardWrapper.href = project.link;
                     cardWrapper.target = "_blank";
                     cardWrapper.rel = "noopener noreferrer";
-                    cardWrapper.dataset.index = index;
-
-                    // Attach event listeners for the hover effect
-                    cardWrapper.addEventListener('mouseenter', handleCardMouseEnter);
-                    cardWrapper.addEventListener('mousemove', handleCardMouseMove);
-                    cardWrapper.addEventListener('mouseleave', handleCardMouseLeave);
                     
                     cardWrapper.innerHTML = `
-                        <div class="project-card flex flex-col sm:flex-row items-start sm:items-center gap-6 w-full p-4 sm:p-5 rounded-xl border border-transparent dark:border-transparent bg-gray-100/50 dark:bg-gray-800/20 transition-all duration-300 transform-gpu group-hover:shadow-xl group-hover:bg-white dark:group-hover:bg-gray-800 group-hover:border-teal-400/50 group-hover:-translate-y-1">
+                        <div class="project-card flex flex-col sm:flex-row items-center gap-6 w-full p-4 sm:p-5 rounded-xl border border-slate-200/80 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 transition-all duration-300 transform-gpu group-hover:bg-white dark:group-hover:bg-slate-800/50 group-hover:shadow-lg group-hover:-translate-y-1">
                             
                             <!-- Thumbnail -->
-                            <div class="w-20 h-20 sm:w-24 sm:h-24 flex-shrink-0 bg-gray-200 dark:bg-gray-700 rounded-lg overflow-hidden shadow-sm">
+                            <div class="w-24 h-24 flex-shrink-0 bg-slate-100 dark:bg-slate-800 rounded-lg overflow-hidden shadow-sm">
                                 <img src="${project.thumbnail}" alt="${project.title} thumbnail" class="w-full h-full object-cover">
                             </div>
                             
                             <!-- Content -->
-                            <div class="flex-grow">
-                                <h3 class="text-lg font-bold text-gray-900 dark:text-white">${project.title}</h3>
-                                <p class="text-gray-600 dark:text-gray-400 text-sm mt-1 mb-4">${project.description}</p>
+                            <div class="flex-grow w-full">
+                                <h3 class="text-lg font-bold text-slate-900 dark:text-slate-100">${project.title}</h3>
+                                <p class="text-slate-600 dark:text-slate-400 text-sm mt-1 mb-4">${project.description}</p>
                                 
                                 <!-- Tags -->
                                 <div class="flex flex-wrap gap-2">
@@ -442,33 +420,14 @@
 
                              <!-- Arrow Icon -->
                             <div class="hidden sm:block ml-auto flex-shrink-0 self-center">
-                                <i class="fas fa-arrow-right text-gray-400 dark:text-gray-500 transition-transform duration-300 group-hover:translate-x-1 group-hover:text-teal-400"></i>
+                                <i class="fas fa-arrow-right text-slate-400 dark:text-slate-500 transition-transform duration-300 group-hover:translate-x-1 group-hover:text-slate-500"></i>
                             </div>
                         </div>
                     `;
-
                     cardsContainer.appendChild(cardWrapper);
                 });
             }
 
-            function handleCardMouseEnter(event) {
-                const { index } = event.currentTarget.dataset;
-                const project = projects[index];
-                if (project.image) {
-                    floatingPreviewImage.src = project.image;
-                    floatingPreview.classList.remove('hidden');
-                }
-            }
-
-            function handleCardMouseMove(event) {
-                // Position the preview next to the cursor with an offset
-                floatingPreview.style.transform = `translate(${event.clientX + 20}px, ${event.clientY + 20}px)`;
-            }
-
-            function handleCardMouseLeave() {
-                floatingPreview.classList.add('hidden');
-            }
-            
             renderProjects();
             
             document.getElementById('current-year').textContent = new Date().getFullYear();
