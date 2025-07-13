@@ -110,7 +110,7 @@
         <section id="home" class="min-h-screen flex flex-col items-center justify-center text-center relative">
             
             <!-- Stats Block -->
-            <div class="hidden lg:flex flex-col gap-8 absolute top-1/2 -translate-y-1/2 right-0">
+            <div class="hidden lg:flex flex-col gap-8 absolute top-1/2 -translate-y-1/2 right-8">
                 <div class="stat-item text-right">
                     <p class="text-2xl font-bold text-slate-900 dark:text-white">4+</p>
                     <p class="text-xs text-slate-500 dark:text-slate-400">Years of Experience</p>
@@ -212,13 +212,13 @@
                 Companies & Projects I've Contributed To
             </h3>
             <div class="max-w-5xl mx-auto flex flex-wrap justify-center items-center gap-x-12 sm:gap-x-24 gap-y-16">
-                <img src="assets/img/B&W/Cognizant.png" alt="Cognizant Logo" class="client-logo" style="transform: scale(2.2);">
-                <img src="assets/img/B&W/HealthNet.png" alt="Health Net Logo" class="client-logo" style="transform: scale(2.2);">
-                <img src="assets/img/B&W/Allegis.png" alt="Allegis Group Logo" class="client-logo">
-                <img src="assets/img/B&W/Marvel.png" alt="Marvel Logo" class="client-logo" style="transform: scale(1.8);">
-                <img src="assets/img/B&W/Soho.png" alt="SOHO VFX Logo" class="client-logo" style="transform: scale(1.5);">
-                <img src="assets/img/B&W/jellysmack.png" alt="Jellysmack Logo" class="client-logo" style="transform: scale(2.2);">
-                <img src="assets/img/B&W/REV.png" alt="REV Logo" class="client-logo dark:invert">
+                <img src="assets/img/B&W/Cognizant.png" alt="Cognizant Logo" class="client-logo theme-aware-logo" data-light-src="assets/img/B&W/Cognizant.png" data-dark-src="assets/img/B&W/Inverted/Cognizant.png" style="transform: scale(2.2);">
+                <img src="assets/img/B&W/HealthNet.png" alt="Health Net Logo" class="client-logo theme-aware-logo" data-light-src="assets/img/B&W/HealthNet.png" data-dark-src="assets/img/B&W/Inverted/HealthNet.png" style="transform: scale(2.2);">
+                <img src="assets/img/B&W/Allegis.png" alt="Allegis Group Logo" class="client-logo theme-aware-logo" data-light-src="assets/img/B&W/Allegis.png" data-dark-src="assets/img/B&W/Inverted/Allegis.png">
+                <img src="assets/img/B&W/Marvel.png" alt="Marvel Logo" class="client-logo theme-aware-logo" data-light-src="assets/img/B&W/Marvel.png" data-dark-src="assets/img/B&W/Inverted/Marvel.png" style="transform: scale(1.8);">
+                <img src="assets/img/B&W/Soho.png" alt="SOHO VFX Logo" class="client-logo theme-aware-logo" data-light-src="assets/img/B&W/Soho.png" data-dark-src="assets/img/B&W/Inverted/Soho.png" style="transform: scale(1.5);">
+                <img src="assets/img/B&W/jellysmack.png" alt="Jellysmack Logo" class="client-logo theme-aware-logo" data-light-src="assets/img/B&W/jellysmack.png" data-dark-src="assets/img/B&W/Inverted/jellysmack.png" style="transform: scale(2.2);">
+                <img src="assets/img/B&W/REV.png" alt="REV Logo" class="client-logo" data-light-src="assets/img/B&W/REV.png" data-dark-src="assets/img/B&W/Inverted/REV.png">
             </div>
         </section>
 
@@ -337,6 +337,24 @@
         document.addEventListener('DOMContentLoaded', () => {
             const docEl = document.documentElement;
 
+            // --- Function to update images based on theme ---
+            const updateThemeImages = () => {
+                const isDark = docEl.classList.contains('dark');
+                const imagesToSwap = document.querySelectorAll('.theme-aware-logo, .theme-aware-skill-logo');
+
+                imagesToSwap.forEach(img => {
+                    if (img.dataset.lightSrc && img.dataset.darkSrc) {
+                        img.src = isDark ? img.dataset.darkSrc : img.dataset.lightSrc;
+                    }
+                });
+
+                // Special case for the inverted REV logo
+                const revLogo = document.querySelector('.client-logo[alt="REV Logo"]');
+                if (revLogo) {
+                    revLogo.classList.toggle('dark:invert', !isDark);
+                }
+            };
+
             // --- Theme Toggler ---
             const themeToggleBtn = document.getElementById('theme-toggle');
             const sunIcon = document.getElementById('theme-icon-sun');
@@ -345,11 +363,13 @@
                 if (docEl.classList.contains('dark')) { sunIcon.classList.add('hidden'); moonIcon.classList.remove('hidden'); } 
                 else { sunIcon.classList.remove('hidden'); moonIcon.classList.add('hidden'); }
             };
-            updateIcon();
+            updateIcon(); // Set initial icon
+            
             themeToggleBtn.addEventListener('click', () => {
                 docEl.classList.toggle('dark');
                 localStorage.setItem('theme', docEl.classList.contains('dark') ? 'dark' : 'light');
                 updateIcon();
+                updateThemeImages(); // Update images on toggle
             });
 
             // --- Mobile Menu ---
@@ -470,30 +490,30 @@
             // --- Skills Data and Rendering ---
             const skillsData = {
                 languages: [
-                    { name: 'Python', icon: '<img src="assets/img/Tools/Python.png" alt="Python logo" class="w-full h-full object-contain">' },
-                    { name: 'MySQL', icon: '<img src="assets/img/Tools/MySQL.png" alt="MySQL logo" class="w-full h-full object-contain">' },
-                    { name: 'R', icon: '<img src="assets/img/Tools/R.png" alt="R logo" class="w-full h-full object-contain">' },
-                    { name: 'MongoDB', icon: '<img src="assets/img/Tools/MongoDB.png" alt="MongoDB logo" class="w-full h-full object-contain">' }
+                    { name: 'Python', light_icon: 'assets/img/Tools/Python.png', dark_icon: 'assets/img/Tools/Inverted/Python.png' },
+                    { name: 'MySQL', light_icon: 'assets/img/Tools/MySQL.png', dark_icon: 'assets/img/Tools/Inverted/MySQL.png' },
+                    { name: 'R', light_icon: 'assets/img/Tools/R.png', dark_icon: 'assets/img/Tools/Inverted/R.png' },
+                    { name: 'MongoDB', light_icon: 'assets/img/Tools/MongoDB.png', dark_icon: 'assets/img/Tools/Inverted/MongoDB.png' }
                 ],
                 libraries: [
-                    { name: 'Pandas', icon: '<img src="assets/img/Tools/pandas.png" alt="Pandas logo" class="w-full h-full object-contain">' },
-                    { name: 'NumPy', icon: '<img src="assets/img/Tools/numpy.png" alt="NumPy logo" class="w-full h-full object-contain">' },
-                    { name: 'Matplotlib', icon: '<img src="assets/img/Tools/Matplotlib.png" alt="Matplotlib logo" class="w-full h-full object-contain">' },
-                    { name: 'Seaborn', icon: '<img src="assets/img/Tools/seaborn.png" alt="Seaborn logo" class="w-full h-full object-contain">' },
-                    { name: 'Beautiful Soup', icon: '<img src="assets/img/Tools/BeautifulSoup.png" alt="Beautiful Soup logo" class="w-full h-full object-contain">' },
-                    { name: 'TensorFlow', icon: '<img src="assets/img/Tools/TensorFlow.png" alt="TensorFlow logo" class="w-full h-full object-contain">' },
-                    { name: 'PyTorch', icon: '<img src="assets/img/Tools/PyTorch.png" alt="PyTorch logo" class="w-full h-full object-contain">' },
+                    { name: 'Pandas', light_icon: 'assets/img/Tools/pandas.png', dark_icon: 'assets/img/Tools/Inverted/pandas.png' },
+                    { name: 'NumPy', light_icon: 'assets/img/Tools/numpy.png', dark_icon: 'assets/img/Tools/Inverted/numpy.png' },
+                    { name: 'Matplotlib', light_icon: 'assets/img/Tools/Matplotlib.png', dark_icon: 'assets/img/Tools/Inverted/Matplotlib.png' },
+                    { name: 'Seaborn', light_icon: 'assets/img/Tools/seaborn.png', dark_icon: 'assets/img/Tools/Inverted/seaborn.png' },
+                    { name: 'Beautiful Soup', light_icon: 'assets/img/Tools/BeautifulSoup.png', dark_icon: 'assets/img/Tools/Inverted/BeautifulSoup.png' },
+                    { name: 'TensorFlow', light_icon: 'assets/img/Tools/TensorFlow.png', dark_icon: 'assets/img/Tools/Inverted/TensorFlow.png' },
+                    { name: 'PyTorch', light_icon: 'assets/img/Tools/PyTorch.png', dark_icon: 'assets/img/Tools/Inverted/PyTorch.png' },
                 ],
                 tools: [
-                    { name: 'Tableau', icon: '<img src="assets/img/Tools/Tableau.png" alt="Tableau logo" class="w-full h-full object-contain">' },
-                    { name: 'Power BI', icon: '<img src="assets/img/Tools/PowerBI.png" alt="Power BI logo" class="w-full h-full object-contain">' },
-                    { name: 'Excel', icon: '<img src="assets/img/Tools/Excel.png" alt="Excel logo" class="w-full h-full object-contain">' },
-                    { name: 'Google Sheets', icon: '<img src="assets/img/Tools/GoogleSheets.png" alt="Google Sheets logo" class="w-full h-full object-contain">' },
-                    { name: 'Git', icon: '<img src="assets/img/Tools/Git.png" alt="Git logo" class="w-full h-full object-contain">' },
-                    { name: 'Jupyter', icon: '<img src="assets/img/Tools/Jupyter.png" alt="Jupyter logo" class="w-full h-full object-contain">' },
-                    { name: 'Apache Airflow', icon: '<img src="assets/img/Tools/ApacheAirflow.png" alt="Apache Airflow logo" class="w-full h-full object-contain">'},
-                    { name: 'Microsoft Suite', icon: '<img src="assets/img/Tools/MicrosoftSuite.png" alt="Microsoft Suite logo" class="w-full h-full object-contain">' },
-                    { name: 'More', icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M5 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm14 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-7 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>' },
+                    { name: 'Tableau', light_icon: 'assets/img/Tools/Tableau.png', dark_icon: 'assets/img/Tools/Inverted/Tableau.png' },
+                    { name: 'Power BI', light_icon: 'assets/img/Tools/PowerBI.png', dark_icon: 'assets/img/Tools/Inverted/PowerBI.png' },
+                    { name: 'Excel', light_icon: 'assets/img/Tools/Excel.png', dark_icon: 'assets/img/Tools/Inverted/Excel.png' },
+                    { name: 'Google Sheets', light_icon: 'assets/img/Tools/GoogleSheets.png', dark_icon: 'assets/img/Tools/Inverted/GoogleSheets.png' },
+                    { name: 'Git', light_icon: 'assets/img/Tools/Git.png', dark_icon: 'assets/img/Tools/Inverted/Git.png' },
+                    { name: 'Jupyter', light_icon: 'assets/img/Tools/Jupyter.png', dark_icon: 'assets/img/Tools/Inverted/Jupyter.png' },
+                    { name: 'Apache Airflow', light_icon: 'assets/img/Tools/ApacheAirflow.png', dark_icon: 'assets/img/Tools/Inverted/ApacheAirflow.png'},
+                    { name: 'Microsoft Suite', light_icon: 'assets/img/Tools/MicrosoftSuite.png', dark_icon: 'assets/img/Tools/Inverted/MicrosoftSuite.png' },
+                    { name: 'More', icon_svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M5 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm14 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-7 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>' },
                 ],
             };
             const skillsContainer = document.getElementById('skills-container');
@@ -502,15 +522,12 @@
                 skillsContainer.innerHTML = '';
                 Object.keys(skillsData).forEach(categoryKey => {
                     const category = skillsData[categoryKey];
-
-                    // Create and append category title
                     const title = document.createElement('h3');
                     title.className = 'skill-category-title';
                     const formattedTitle = categoryKey.charAt(0).toUpperCase() + categoryKey.slice(1);
                     title.textContent = formattedTitle;
                     skillsContainer.appendChild(title);
                     
-                    // Create and append grid container
                     const grid = document.createElement('div');
                     grid.className = 'skill-badge-container';
                     skillsContainer.appendChild(grid);
@@ -518,15 +535,25 @@
                     category.forEach(skill => {
                         const item = document.createElement('div');
                         item.className = 'skill-item';
-                        item.innerHTML = `<div class="skill-icon">${skill.icon}</div><span>${skill.name}</span>`;
+                        
+                        let iconHtml = '';
+                        if (skill.light_icon) {
+                            iconHtml = `<img src="${skill.light_icon}" alt="${skill.name} logo" class="w-full h-full object-contain theme-aware-skill-logo" data-light-src="${skill.light_icon}" data-dark-src="${skill.dark_icon}">`;
+                        } else if (skill.icon_svg) {
+                            iconHtml = skill.icon_svg;
+                        }
+
+                        item.innerHTML = `<div class="skill-icon">${iconHtml}</div><span>${skill.name}</span>`;
                         grid.appendChild(item);
                     });
                 });
             }
             renderSkills();
 
-
+            // --- Initial Setup ---
             document.getElementById('current-year').textContent = new Date().getFullYear();
+            // Set initial images based on theme from localStorage
+            updateThemeImages(); 
         });
     </script>
 </body>
