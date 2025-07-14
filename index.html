@@ -15,10 +15,6 @@
 
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- GSAP (GreenSock Animation Platform) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
     <!-- Theme Persistence Script -->
     <script>
@@ -34,9 +30,17 @@
         @layer base {
             html { font-family: 'Inter', sans-serif; }
             h1, h2, h3, h4, h5, h6 { font-family: 'Poppins', sans-serif; }
-            body { cursor: default; }
         }
         /* Custom Styles & Animations */
+        .animated-element {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .animated-element.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
         .scroll-parallax {
             transition: transform 0.5s ease-out;
         }
@@ -46,12 +50,6 @@
         }
         .animate-bounce-slow {
             animation: bounce 2s infinite;
-        }
-        .header-scrolled {
-            background-color: rgba(15, 23, 42, 0.75) !important;
-            -webkit-backdrop-filter: blur(8px);
-            backdrop-filter: blur(8px);
-            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
         }
     </style>
 </head>
@@ -63,12 +61,14 @@
     </div>
 
     <!-- Header & Navigation -->
-    <header id="header" class="fixed top-0 left-0 right-0 z-40 transition-all duration-300 bg-slate-900">
+    <header id="header" class="fixed top-0 left-0 right-0 z-40 transition-shadow duration-300 bg-slate-900">
         <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
+                <!-- Left Aligned Name -->
                 <div class="flex-1">
                      <a href="#home" class="text-xl font-bold font-['Poppins'] tracking-tight text-white">VK</a>
                 </div>
+                <!-- Center Aligned Nav -->
                 <nav class="hidden md:flex items-center justify-center space-x-6 lg:space-x-8">
                     <a href="#projects" class="nav-link">Projects</a>
                     <a href="#experience" class="nav-link">Experience</a>
@@ -76,6 +76,7 @@
                     <a href="#skills" class="nav-link">Skills</a>
                     <a href="#contact" class="nav-link">Contact</a>
                 </nav>
+                <!-- Right Aligned Icons -->
                 <div class="flex-1 flex justify-end">
                     <div class="flex items-center space-x-4">
                         <button id="theme-toggle" aria-label="Toggle color theme" class="w-10 h-10 rounded-lg flex items-center justify-center text-slate-300 hover:bg-slate-800 transition-colors">
@@ -107,23 +108,25 @@
 
         <!-- Home & About Section -->
         <section id="home" class="min-h-screen flex flex-col items-center justify-center text-center relative">
+            
+            <!-- Stats Block -->
             <div class="hidden lg:flex flex-col gap-8 fixed top-1/2 -translate-y-1/2 right-5 lg:right-8 z-50">
                 <div class="stat-item text-right">
-                    <p class="stat-number text-xl font-bold text-slate-900 dark:text-white" data-final-value="4">0+</p>
+                    <p class="text-xl font-bold text-slate-900 dark:text-white">4+</p>
                     <p class="text-xs text-slate-500 dark:text-slate-400">Years of Experience</p>
                 </div>
                  <div class="stat-item text-right">
-                    <p class="stat-number text-xl font-bold text-slate-900 dark:text-white" data-final-value="12">0+</p>
+                    <p class="text-xl font-bold text-slate-900 dark:text-white">12+</p>
                     <p class="text-xs text-slate-500 dark:text-slate-400">Completed Projects</p>
                 </div>
                  <div class="stat-item text-right">
-                    <p class="stat-number text-xl font-bold text-slate-900 dark:text-white" data-final-value="10000" data-format-k="true">0K+</p>
+                    <p class="text-xl font-bold text-slate-900 dark:text-white">10K+</p>
                     <p class="text-xs text-slate-500 dark:text-slate-400">Hours Worked</p>
                 </div>
             </div>
 
             <div class="w-full max-w-4xl">
-                <div class="home-animation-group">
+                <div class="animated-element">
                     <h1 class="text-5xl md:text-7xl font-bold tracking-tighter mb-4 text-slate-900 dark:text-slate-100">Varun Kammanni</h1>
                     <p class="text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
                         <span class="text-2xl md:text-2xl font-bold text-slate-800 dark:text-slate-200">Data Analyst</span><br/>
@@ -136,7 +139,7 @@
                     </div>
                 </div>
                 
-                <div class="home-animation-group mt-12 max-w-3xl mx-auto text-center leading-relaxed text-slate-700 dark:text-slate-300">
+                <div class="animated-element mt-12 max-w-3xl mx-auto text-center leading-relaxed text-slate-700 dark:text-slate-300">
                      <p>
                         I am a detail-oriented Data Analyst with a passion for uncovering the stories hidden within data. My expertise lies in cleaning, transforming, and visualizing complex datasets to drive data-informed decision-making. With a strong background in SQL, Python, and data visualization tools like Tableau and Power BI, I excel at turning raw numbers into clear, actionable insights.
                     </p>
@@ -154,14 +157,13 @@
 
         <!-- Projects Section -->
         <section id="projects" class="py-20 md:py-32">
-             <div class="section-content-wrapper">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16 text-center">
-                    <h2 class="section-title">Selected Projects</h2>
-                </div>
-                <!-- Bento Grid Container -- CORRECTED -->
-                <div id="project-cards-container" class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <!-- Cards will be generated by JS here -->
-                </div>
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16 text-center">
+                <h2 class="section-title">
+                    Selected Projects
+                </h2>
+            </div>
+            <div id="project-cards-container" class="max-w-4xl mx-auto px-4 flex flex-col items-center gap-8">
+                <!-- Cards will be generated by JS here -->
             </div>
         </section>
 
@@ -170,65 +172,66 @@
         
         <!-- Experience Section -->
         <section id="experience" class="py-20 md:py-32 max-w-4xl mx-auto">
-             <div class="section-content-wrapper">
-                <h2 class="section-title scroll-parallax">Experience</h2>
-                <div class="max-w-3xl mx-auto space-y-8 relative">
-                    <div class="absolute left-3 top-0 bottom-0 w-0.5 bg-slate-200 dark:bg-slate-700 mt-2"></div>
-                    
-                    <div class="experience-item group relative">
-                        <div class="timeline-dot"></div>
-                        <div class="pl-10">
-                            <p class="text-sm text-slate-500 dark:text-slate-400">2022 - 2025</p>
-                            <h3 class="text-xl font-bold">Data Analyst</h3>
-                            <p class="font-semibold text-slate-700 dark:text-slate-300">Soho VFX <span class="font-normal text-slate-500 dark:text-slate-400">| Toronto, Canada</span></p>
-                            <ul class="experience-details space-y-2 text-slate-700 dark:text-slate-300 list-disc list-inside">
-                                <li>Optimized SQL queries for VFX shot telemetry, reducing render queue latency by 30%.</li>
-                                <li>Cleaned and optimized VFX asset metadata with SQL, ensuring data integrity for 65+ artists and supervisors.</li>
-                                <li>Architected and deployed Tableau/Power BI dashboards for real-time visualization of render farm performance and project timelines.</li>
-                                <li>Utilized Python (Pandas, NumPy) for advanced analysis of frame rendering metrics and A/B testing on pipeline tools.</li>
-                                <li>Identified and diagnosed bottlenecks in VFX workflows via data trends, proposing data-driven solutions to enhance production efficiency.</li>
-                                <li>Articulated analytical insights to non-technical VFX supervisors, improving shot approval efficiency.</li>
-                                <li>Collaborated with Pipeline TDs to enhance ETL processes, cutting asset processing time to 20 minutes.</li>
-                            </ul>
-                        </div>
+            <h2 class="section-title scroll-parallax">Experience</h2>
+            <div class="animated-element max-w-3xl mx-auto space-y-8 relative">
+                <div class="absolute left-3 top-0 bottom-0 w-0.5 bg-slate-200 dark:bg-slate-700 mt-2"></div>
+                
+                <!-- Experience Item 1 -->
+                <div class="experience-item group relative">
+                    <div class="timeline-dot"></div>
+                    <div class="pl-10">
+                        <p class="text-sm text-slate-500 dark:text-slate-400">2022 - 2025</p>
+                        <h3 class="text-xl font-bold">Data Analyst</h3>
+                        <p class="font-semibold text-slate-700 dark:text-slate-300">Soho VFX <span class="font-normal text-slate-500 dark:text-slate-400">| Toronto, Canada</span></p>
+                        <ul class="experience-details space-y-2 text-slate-700 dark:text-slate-300 list-disc list-inside">
+                            <li>Optimized SQL queries for VFX shot telemetry, reducing render queue latency by 30%.</li>
+                            <li>Cleaned and optimized VFX asset metadata with SQL, ensuring data integrity for 65+ artists and supervisors.</li>
+                            <li>Architected and deployed Tableau/Power BI dashboards for real-time visualization of render farm performance and project timelines.</li>
+                            <li>Utilized Python (Pandas, NumPy) for advanced analysis of frame rendering metrics and A/B testing on pipeline tools.</li>
+                            <li>Identified and diagnosed bottlenecks in VFX workflows via data trends, proposing data-driven solutions to enhance production efficiency.</li>
+                            <li>Articulated analytical insights to non-technical VFX supervisors, improving shot approval efficiency.</li>
+                            <li>Collaborated with Pipeline TDs to enhance ETL processes, cutting asset processing time to 20 minutes.</li>
+                        </ul>
                     </div>
+                </div>
 
-                    <div class="experience-item group relative">
-                        <div class="timeline-dot"></div>
-                        <div class="pl-10">
-                            <p class="text-sm text-slate-500 dark:text-slate-400">2020 - 2022</p>
-                            <h3 class="text-xl font-bold">Project Coordinator / Data Analyst (Freelance)</h3>
-                            <p class="font-semibold text-slate-700 dark:text-slate-300">Jellysmack & Retail Ecommerce Ventures <span class="font-normal text-slate-500 dark:text-slate-400">| Toronto, Canada</span></p>
-                            <ul class="experience-details space-y-2 text-slate-700 dark:text-slate-300 list-disc list-inside">
-                                <li>Performance Analytics & Reporting: Conducted performance analytics on campaigns, delivering data-driven reports for strategic adjustments.</li>
-                                <li>Advanced Data Visualization: Designed Tableau dashboards, transforming complex data into actionable visual insights.</li>
-                                <li>SQL-Driven Data Management: Utilized advanced SQL for data extraction, transformation, and analysis, supporting key initiatives.</li>
-                                <li>Project Leadership & Data Integration: Led projects, integrating data analytics for strategic decision-making in digital content and e-commerce.</li>
-                                <li>Python for Analytical Solutions: Developed Python tools for data processing, automation, and custom analytics.</li>
-                                <li>Cloud Data Infrastructure Coordination: Applied AWS knowledge to coordinate scalable data storage and processing solutions.</li>
-                                <li>Data-Driven Process Optimization: Identified inefficiencies via data analysis, proposing and implementing process improvements.</li>
-                                <li>Cross-functional Data Communication: Presented analytical findings to diverse teams, fostering a data-informed culture.</li>
-                            </ul>
-                        </div>
+                <!-- Experience Item 2 -->
+                <div class="experience-item group relative">
+                    <div class="timeline-dot"></div>
+                    <div class="pl-10">
+                        <p class="text-sm text-slate-500 dark:text-slate-400">2020 - 2022</p>
+                        <h3 class="text-xl font-bold">Project Coordinator / Data Analyst (Freelance)</h3>
+                        <p class="font-semibold text-slate-700 dark:text-slate-300">Jellysmack & Retail Ecommerce Ventures <span class="font-normal text-slate-500 dark:text-slate-400">| Toronto, Canada</span></p>
+                        <ul class="experience-details space-y-2 text-slate-700 dark:text-slate-300 list-disc list-inside">
+                            <li>Performance Analytics & Reporting: Conducted performance analytics on campaigns, delivering data-driven reports for strategic adjustments.</li>
+                            <li>Advanced Data Visualization: Designed Tableau dashboards, transforming complex data into actionable visual insights.</li>
+                            <li>SQL-Driven Data Management: Utilized advanced SQL for data extraction, transformation, and analysis, supporting key initiatives.</li>
+                            <li>Project Leadership & Data Integration: Led projects, integrating data analytics for strategic decision-making in digital content and e-commerce.</li>
+                            <li>Python for Analytical Solutions: Developed Python tools for data processing, automation, and custom analytics.</li>
+                            <li>Cloud Data Infrastructure Coordination: Applied AWS knowledge to coordinate scalable data storage and processing solutions.</li>
+                            <li>Data-Driven Process Optimization: Identified inefficiencies via data analysis, proposing and implementing process improvements.</li>
+                            <li>Cross-functional Data Communication: Presented analytical findings to diverse teams, fostering a data-informed culture.</li>
+                        </ul>
                     </div>
-                    
-                    <div class="experience-item group relative">
-                        <div class="timeline-dot"></div>
-                        <div class="pl-10">
-                            <p class="text-sm text-slate-500 dark:text-slate-400">2014 - 2018</p>
-                            <h3 class="text-xl font-bold">PMO Analyst / Data Analyst</h3>
-                            <p class="font-semibold text-slate-700 dark:text-slate-300">Cognizant <span class="font-normal text-slate-500 dark:text-slate-400">| Bengaluru, India</span></p>
-                            <ul class="experience-details space-y-2 text-slate-700 dark:text-slate-300 list-disc list-inside">
-                                <li>Provided Tier 2 application support, leveraging SQL for data-driven system enhancements and incident resolution via ServiceNow.</li>
-                                <li>Developed comprehensive technical documentation, reducing ticket resolution time by 20% and enhancing troubleshooting efficiency.</li>
-                                <li>Delivered BI tool (Tableau/Power BI) training to 500+ client users, enabling self-service data insights from Health Net user data.</li>
-                                <li>Managed critical IT infrastructure with cross-functional teams, ensuring 99% system uptime and ISO 27001 compliance.</li>
-                                <li>Performed rigorous software quality assurance using SOPs, test cases, and automation, while resolving complex code and performance issues.</li>
-                                <li>Analyzed Health Net user data with advanced SQL (JOINs, GROUP BY, window functions), reducing query times by 20%.</li>
-                                <li>Designed and maintained scalable Python backend services for real-time messaging and developed analytics tools for patient behavior insights.</li>
-                                <li>Monitored SOP compliance and project progress, conducting root cause analyses and proposing process optimizations.</li>
-                            </ul>
-                        </div>
+                </div>
+                
+                <!-- Experience Item 3 -->
+                <div class="experience-item group relative">
+                    <div class="timeline-dot"></div>
+                    <div class="pl-10">
+                        <p class="text-sm text-slate-500 dark:text-slate-400">2014 - 2018</p>
+                        <h3 class="text-xl font-bold">PMO Analyst / Data Analyst</h3>
+                        <p class="font-semibold text-slate-700 dark:text-slate-300">Cognizant <span class="font-normal text-slate-500 dark:text-slate-400">| Bengaluru, India</span></p>
+                        <ul class="experience-details space-y-2 text-slate-700 dark:text-slate-300 list-disc list-inside">
+                            <li>Provided Tier 2 application support, leveraging SQL for data-driven system enhancements and incident resolution via ServiceNow.</li>
+                            <li>Developed comprehensive technical documentation, reducing ticket resolution time by 20% and enhancing troubleshooting efficiency.</li>
+                            <li>Delivered BI tool (Tableau/Power BI) training to 500+ client users, enabling self-service data insights from Health Net user data.</li>
+                            <li>Managed critical IT infrastructure with cross-functional teams, ensuring 99% system uptime and ISO 27001 compliance.</li>
+                            <li>Performed rigorous software quality assurance using SOPs, test cases, and automation, while resolving complex code and performance issues.</li>
+                            <li>Analyzed Health Net user data with advanced SQL (JOINs, GROUP BY, window functions), reducing query times by 20%.</li>
+                            <li>Designed and maintained scalable Python backend services for real-time messaging and developed analytics tools for patient behavior insights.</li>
+                            <li>Monitored SOP compliance and project progress, conducting root cause analyses and proposing process optimizations.</li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -239,19 +242,17 @@
 
         <!-- Client Logos Section -->
         <section id="clients" class="py-16">
-             <div class="section-content-wrapper">
-                <h3 class="section-title uppercase tracking-widest text-sm">
-                    Companies & Projects I've Contributed To
-                </h3>
-                <div class="max-w-5xl mx-auto flex flex-wrap justify-center items-center gap-x-12 sm:gap-x-24 gap-y-16 client-logos">
-                    <img src="assets/img/B&W/Cognizant.png" alt="Cognizant Logo" class="client-logo theme-aware-logo" data-light-src="assets/img/B&W/Cognizant.png" data-dark-src="assets/img/B&W/Inverted/Cognizant.png" style="transform: scale(2.2);">
-                    <img src="assets/img/B&W/HealthNet.png" alt="Health Net Logo" class="client-logo theme-aware-logo" data-light-src="assets/img/B&W/HealthNet.png" data-dark-src="assets/img/B&W/Inverted/HealthNet.png" style="transform: scale(2.2);">
-                    <img src="assets/img/B&W/Allegis.png" alt="Allegis Group Logo" class="client-logo theme-aware-logo" data-light-src="assets/img/B&W/Allegis.png" data-dark-src="assets/img/B&W/Inverted/Allegis.png">
-                    <img src="assets/img/B&W/Marvel.png" alt="Marvel Logo" class="client-logo theme-aware-logo" data-light-src="assets/img/B&W/Marvel.png" data-dark-src="assets/img/B&W/Inverted/Marvel.png" style="transform: scale(1.8);">
-                    <img src="assets/img/B&W/Soho.png" alt="SOHO VFX Logo" class="client-logo theme-aware-logo" data-light-src="assets/img/B&W/Soho.png" data-dark-src="assets/img/B&W/Inverted/Soho.png" style="transform: scale(1.5);">
-                    <img src="assets/img/B&W/jellysmack.png" alt="Jellysmack Logo" class="client-logo theme-aware-logo" data-light-src="assets/img/B&W/jellysmack.png" data-dark-src="assets/img/B&W/Inverted/jellysmack.png" style="transform: scale(2.2);">
-                    <img src="assets/img/B&W/REV.png" alt="REV Logo" class="client-logo" data-light-src="assets/img/B&W/REV.png" data-dark-src="assets/img/B&W/Inverted/REV.png">
-                </div>
+            <h3 class="text-center text-sm font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-10">
+                Companies & Projects I've Contributed To
+            </h3>
+            <div class="max-w-5xl mx-auto flex flex-wrap justify-center items-center gap-x-12 sm:gap-x-24 gap-y-16">
+                <img src="assets/img/B&W/Cognizant.png" alt="Cognizant Logo" class="client-logo theme-aware-logo" data-light-src="assets/img/B&W/Cognizant.png" data-dark-src="assets/img/B&W/Inverted/Cognizant.png" style="transform: scale(2.2);">
+                <img src="assets/img/B&W/HealthNet.png" alt="Health Net Logo" class="client-logo theme-aware-logo" data-light-src="assets/img/B&W/HealthNet.png" data-dark-src="assets/img/B&W/Inverted/HealthNet.png" style="transform: scale(2.2);">
+                <img src="assets/img/B&W/Allegis.png" alt="Allegis Group Logo" class="client-logo theme-aware-logo" data-light-src="assets/img/B&W/Allegis.png" data-dark-src="assets/img/B&W/Inverted/Allegis.png">
+                <img src="assets/img/B&W/Marvel.png" alt="Marvel Logo" class="client-logo theme-aware-logo" data-light-src="assets/img/B&W/Marvel.png" data-dark-src="assets/img/B&W/Inverted/Marvel.png" style="transform: scale(1.8);">
+                <img src="assets/img/B&W/Soho.png" alt="SOHO VFX Logo" class="client-logo theme-aware-logo" data-light-src="assets/img/B&W/Soho.png" data-dark-src="assets/img/B&W/Inverted/Soho.png" style="transform: scale(1.5);">
+                <img src="assets/img/B&W/jellysmack.png" alt="Jellysmack Logo" class="client-logo theme-aware-logo" data-light-src="assets/img/B&W/jellysmack.png" data-dark-src="assets/img/B&W/Inverted/jellysmack.png" style="transform: scale(2.2);">
+                <img src="assets/img/B&W/REV.png" alt="REV Logo" class="client-logo" data-light-src="assets/img/B&W/REV.png" data-dark-src="assets/img/B&W/Inverted/REV.png">
             </div>
         </section>
 
@@ -260,30 +261,30 @@
 
         <!-- Education & Certifications Section -->
         <section id="education" class="py-20 md:py-32 max-w-4xl mx-auto">
-             <div class="section-content-wrapper">
-                <h2 class="section-title scroll-parallax">Education & Certifications</h2>
-                <div class="max-w-3xl mx-auto space-y-10">
-                    <div class="space-y-6">
-                        <div>
-                            <h3 class="text-xl font-bold">Master of Science, Project Management</h3>
-                            <p class="text-slate-700 dark:text-slate-300">University of West London, London, UK</p>
-                            <p class="text-sm text-slate-500 dark:text-slate-400">2018 - 2020</p>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-bold">Bachelor of Engineering, CS</h3>
-                            <p class="text-slate-700 dark:text-slate-300">Visvesvaraya Technological University (VTU), Bangalore, India</p>
-                            <p class="text-sm text-slate-500 dark:text-slate-400">2010 - 2014</p>
-                        </div>
+            <h2 class="section-title scroll-parallax">Education & Certifications</h2>
+            <div class="animated-element max-w-3xl mx-auto space-y-10">
+                <!-- Education Block -->
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="text-xl font-bold">Master of Science, Project Management</h3>
+                        <p class="text-slate-700 dark:text-slate-300">University of West London, London, UK</p>
+                        <p class="text-sm text-slate-500 dark:text-slate-400">2018 - 2020</p>
                     </div>
                     <div>
-                        <h3 class="text-xl font-bold">Certifications</h3>
-                        <ul class="mt-2 space-y-2 text-slate-700 dark:text-slate-300 list-disc list-inside">
-                            <li>Google Data Analytics Professional Certificate</li>
-                            <li>Tableau Certified Data Analyst</li>
-                            <li>Fundamentals of Artificial Intelligence and Machine Learning by IBM</li>
-                            <li>AWS Certified Solutions Architect - Associate</li>
-                        </ul>
+                        <h3 class="text-xl font-bold">Bachelor of Engineering, CS</h3>
+                        <p class="text-slate-700 dark:text-slate-300">Visvesvaraya Technological University (VTU), Bangalore, India</p>
+                        <p class="text-sm text-slate-500 dark:text-slate-400">2010 - 2014</p>
                     </div>
+                </div>
+                <!-- Certifications Block -->
+                <div>
+                    <h3 class="text-xl font-bold">Certifications</h3>
+                    <ul class="mt-2 space-y-2 text-slate-700 dark:text-slate-300 list-disc list-inside">
+                        <li>Google Data Analytics Professional Certificate</li>
+                        <li>Tableau Certified Data Analyst</li>
+                        <li>Fundamentals of Artificial Intelligence and Machine Learning by IBM</li>
+                        <li>AWS Certified Solutions Architect - Associate</li>
+                    </ul>
                 </div>
             </div>
         </section>
@@ -293,10 +294,9 @@
 
         <!-- Skills Section -->
         <section id="skills" class="py-20 md:py-32 max-w-4xl mx-auto">
-             <div class="section-content-wrapper">
-                <h2 class="section-title scroll-parallax">Analytical Toolkit</h2>
-                <div id="skills-container" class="max-w-5xl mx-auto space-y-12">
-                </div>
+            <h2 class="section-title scroll-parallax">Analytical Toolkit</h2>
+            <div id="skills-container" class="animated-element max-w-4xl mx-auto space-y-12">
+                <!-- Skills will be generated here by JS -->
             </div>
         </section>
 
@@ -305,10 +305,11 @@
 
         <!-- Contact Section -->
         <section id="contact" class="py-20 md:py-32 text-center max-w-4xl mx-auto">
-            <div class="section-content-wrapper">
+            <div class="animated-element">
                 <h2 class="section-title">Let's Connect</h2>
                 <p class="max-w-2xl mx-auto text-slate-600 dark:text-slate-400 mb-8">I am always excited to discuss new projects or data challenges. Below are the best ways to reach me.</p>
                 
+                <!-- Contact Details -->
                 <div class="my-10 flex flex-col md:flex-row items-center justify-center gap-6 md:gap-10">
                     <a href="tel:+14373661006" class="contact-item">
                         <i class="fas fa-phone fa-lg mr-3"></i>
@@ -350,7 +351,7 @@
                     '.nav-link': { '@apply text-sm font-medium text-slate-300 hover:text-white transition-colors': {}, },
                     '.social-icon': { '@apply text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-transform duration-300 hover:scale-110': {}, },
                     '.section-title': { '@apply text-3xl md:text-4xl font-bold text-center mb-12 text-slate-900 dark:text-slate-100': {}, },
-                    '.tech-badge': { '@apply inline-block bg-white/20 text-white text-xs font-semibold px-2.5 py-1 rounded-full': {}, },
+                    '.tech-badge': { '@apply inline-block bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300 text-xs font-semibold px-2.5 py-1 rounded-full': {}, },
                     '.skill-badge-container': { '@apply flex flex-wrap justify-center items-center gap-x-10 gap-y-6': {}, },
                     '.skill-item': { '@apply flex items-center gap-3 transition-transform duration-300 hover:scale-105': {} },
                     '.skill-icon': { '@apply h-7 w-7 text-slate-600 dark:text-slate-400 flex-shrink-0': {} },
@@ -360,9 +361,16 @@
                     '.contact-item': { '@apply flex items-center text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 font-medium transition-colors': {} },
                     '.client-logo': { '@apply h-7 sm:h-8 object-contain max-w-[8rem] sm:max-w-[10rem] filter grayscale opacity-70 transition-all duration-300 hover:grayscale-0 hover:opacity-100': {} },
                     '.stat-item': { '@apply transition-all duration-300 hover:scale-110': {} },
-                    '.experience-item': { '@apply cursor-pointer transition-colors duration-300': {} },
-                    '.experience-details': { '@apply max-h-0 overflow-hidden opacity-0 transition-all duration-700 ease-in-out mt-0': {} },
-                    '.experience-item:hover .experience-details': { '@apply max-h-[500px] opacity-100 mt-3': {} }
+                    /* Styles for Experience Section Hover Effect */
+                    '.experience-item': { 
+                        '@apply cursor-pointer transition-colors duration-300': {},
+                    },
+                    '.experience-details': { 
+                        '@apply max-h-0 overflow-hidden opacity-0 transition-all duration-700 ease-in-out mt-0': {},
+                    },
+                    '.experience-item:hover .experience-details': { 
+                        '@apply max-h-[500px] opacity-100 mt-3': {} 
+                    },
                 })
             }
         ]
@@ -371,18 +379,26 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            gsap.registerPlugin(ScrollTrigger);
             const docEl = document.documentElement;
 
-            // --- Theme Management ---
+            // --- Function to update images based on theme ---
             const updateThemeImages = () => {
                 const isDark = docEl.classList.contains('dark');
-                document.querySelectorAll('.theme-aware-logo, .theme-aware-skill-logo').forEach(img => {
+                const imagesToSwap = document.querySelectorAll('.theme-aware-logo, .theme-aware-skill-logo');
+
+                imagesToSwap.forEach(img => {
                     if (img.dataset.lightSrc && img.dataset.darkSrc) {
                         img.src = isDark ? img.dataset.darkSrc : img.dataset.lightSrc;
                     }
                 });
+
+                const revLogo = document.querySelector('.client-logo[alt="REV Logo"]');
+                if (revLogo) {
+                    revLogo.classList.toggle('dark:invert', !isDark);
+                }
             };
+
+            // --- Theme Toggler ---
             const themeToggleBtn = document.getElementById('theme-toggle');
             const sunIcon = document.getElementById('theme-icon-sun');
             const moonIcon = document.getElementById('theme-icon-moon');
@@ -390,163 +406,181 @@
                 if (docEl.classList.contains('dark')) { sunIcon.classList.add('hidden'); moonIcon.classList.remove('hidden'); } 
                 else { sunIcon.classList.remove('hidden'); moonIcon.classList.add('hidden'); }
             };
-            updateIcon();
+            updateIcon(); // Set initial icon
+            
             themeToggleBtn.addEventListener('click', () => {
                 docEl.classList.toggle('dark');
                 localStorage.setItem('theme', docEl.classList.contains('dark') ? 'dark' : 'light');
                 updateIcon();
-                updateThemeImages();
+                updateThemeImages(); // Update images on toggle
             });
 
             // --- Mobile Menu ---
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
-            document.querySelectorAll('.mobile-menu-link, #mobile-menu-button').forEach(el => {
-                 el.addEventListener('click', () => {
-                    const isHidden = mobileMenu.classList.toggle('hidden');
-                    mobileMenuButton.setAttribute('aria-expanded', !isHidden);
+            const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
+            mobileMenuButton.addEventListener('click', () => {
+                const isHidden = mobileMenu.classList.toggle('hidden');
+                mobileMenuButton.setAttribute('aria-expanded', !isHidden);
+            });
+            mobileMenuLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                    mobileMenuButton.setAttribute('aria-expanded', 'false');
                 });
             });
 
-            // --- Header & Scroll Effects ---
+            // --- Header shadow on scroll ---
             const header = document.getElementById('header');
-            ScrollTrigger.create({
-                start: 'top top',
-                end: 99999,
-                onUpdate: (self) => {
-                    header.classList.toggle('header-scrolled', self.scroll() > 10);
-                }
-            });
+            const handleHeaderScroll = () => {
+                header.classList.toggle('shadow-lg', window.scrollY > 10);
+            };
+
+            // --- Scroll Progress Bar & Parallax ---
             const progressBar = document.getElementById('scroll-progress-bar');
-            window.addEventListener('scroll', () => {
+            const parallaxElements = document.querySelectorAll('.scroll-parallax');
+            const handleScrollEffects = () => {
+                const scrollTop = window.scrollY;
                 const docHeight = docEl.scrollHeight;
                 const winHeight = window.innerHeight;
-                progressBar.style.height = `${(window.scrollY / (docHeight - winHeight)) * 100}%`;
-            }, { passive: true });
-
-            
-            // --- GSAP Animations ---
-            gsap.from(".home-animation-group > *", { opacity: 0, y: 30, duration: 0.8, stagger: 0.2, ease: 'power3.out' });
-            
-            gsap.utils.toArray(".section-content-wrapper").forEach(section => {
-                gsap.from(section.children, {
-                    scrollTrigger: { trigger: section, start: "top 85%", toggleActions: "play none none none" },
-                    opacity: 0,
-                    y: 50,
-                    duration: 0.8,
-                    stagger: 0.15,
-                    ease: 'power3.out'
+                progressBar.style.height = `${(scrollTop / (docHeight - winHeight)) * 100}%`;
+                parallaxElements.forEach(el => {
+                    const rect = el.getBoundingClientRect();
+                    const move = ((rect.top + rect.height / 2) - (winHeight / 2)) * -0.05;
+                    el.style.transform = `translateY(${move}px)`;
                 });
-            });
+            };
+            
+            window.addEventListener('scroll', () => { handleHeaderScroll(); handleScrollEffects(); }, { passive: true });
+            handleHeaderScroll();
 
-            gsap.utils.toArray(".stat-item").forEach(item => {
-                const numberEl = item.querySelector('.stat-number');
-                const finalValue = parseInt(numberEl.dataset.finalValue, 10);
-                const formatK = numberEl.dataset.formatK === 'true';
-                let counter = { val: 0 };
-                
-                gsap.to(counter, {
-                    scrollTrigger: { trigger: item, start: "top 90%", toggleActions: "play none none none" },
-                    val: finalValue,
-                    duration: 2,
-                    ease: "power1.out",
-                    onUpdate: () => {
-                        if (formatK) {
-                            numberEl.textContent = Math.ceil(counter.val / 1000) + "K+";
-                        } else {
-                            numberEl.textContent = Math.ceil(counter.val) + "+";
-                        }
+            // --- Fade-in on Scroll Animation ---
+            const animatedElements = document.querySelectorAll('.animated-element');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
                     }
                 });
-            });
-
-            // --- Dynamic Content Rendering ---
-            const projects = [
-                { title: "Retail Sales - USA", description: "In-depth analysis of retail sales, identifying trends and regional patterns.", link: "https://public.tableau.com/views/Section_6_Retail_Sales_USA_17519498877730/Dashboard1?:language=en-GB&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link", thumbnail: "assets/img/Retail_Sales_USA.png", tags: ["Python", "Tableau"], size: 'large' },
-                { title: "Coal Mining Industry", description: "Visualizing production, employment, and economic impact.", link: "https://public.tableau.com/views/Section_3_Coal_Mining_V3/Report?:language=en-GB&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link", thumbnail: "assets/img/Coal Mining Industry.png", tags: ["PowerBI", "Excel"], size: 'small' },
-                { title: "UK Bank Customers", description: "A story-driven dashboard analyzing customer segments.", link: "https://public.tableau.com/views/UKBankCustomers_17519326212990/Story1?:language=en-GB&publish=yes&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link", thumbnail: "assets/img/UK Bank Customers.png", tags: ["Tableau", "SQL"], size: 'small' },
-                { title: "World Demographics", description: "Animated dashboard showing population change over time.", link: "https://public.tableau.com/views/Section_5_World_Demo/Animation?:language=en-GB&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link", thumbnail: "assets/img/World_Demographics.png", tags: ["Tableau", "Python"], size: 'wide' },
-                { title: "Clothing Industry - AUS", description: "Market trends, sales, and consumer data analysis.", link: "https://public.tableau.com/views/Section_4_Clothes_Industry_Australia/FinalPresentation?:language=en-GB&publish=yes&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link", thumbnail: "assets/img/Clothing Industry - AUS.png", tags: ["Python", "Excel"], size: 'small' }
-            ];
+            }, { threshold: 0.1 });
+            animatedElements.forEach(el => observer.observe(el));
             
+            // --- Project Data ---
+            const projects = [
+                { title: "Retail Sales - USA", description: "An in-depth analysis of retail sales data, identifying trends and regional patterns.", link: "https://public.tableau.com/views/Section_6_Retail_Sales_USA_17519498877730/Dashboard1?:language=en-GB&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link", thumbnail: "assets/img/Retail_Sales_USA.png", image: "assets/img/Retail_Sales_USA.png", tags: ["Python", "Numpy", "Pandas", "Mysql", "Tableau"] },
+                { title: "Coal Mining Industry", description: "A detailed report on the coal mining industry, visualizing production, employment, and economic impact data.", link: "https://public.tableau.com/views/Section_3_Coal_Mining_V3/Report?:language=en-GB&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link", thumbnail: "assets/img/Coal Mining Industry.png", image: "assets/img/Coal Mining Industry.png", tags: ["Python", "Numpy", "Pandas", "matplotlib", "Tableau", "Excel", "PowerBI"] },
+                { title: "UK Bank Customers", description: "A story-driven dashboard analyzing the customer base of a UK bank, highlighting key segments and behaviors.", link: "https://public.tableau.com/views/UKBankCustomers_17519326212990/Story1?:language=en-GB&publish=yes&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link", thumbnail: "assets/img/UK Bank Customers.png", image: "assets/img/UK Bank Customers.png", tags: ["Tableau", "Excel", "Mysql", "Python", "Numpy", "Pandas"] },
+                { title: "World Demographics", description: "An animated dashboard showcasing population change over time, providing insights into growth and shifts.", link: "https://public.tableau.com/views/Section_5_World_Demo/Animation?:language=en-GB&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link", thumbnail: "assets/img/World_Demographics.png", image: "assets/img/World_Demographics.png", tags: ["Python", "Numpy", "Pandas", "Tableau", "Excel", "PowerBI"] },
+                { title: "Clothing Industry - AUS", description: "A comprehensive presentation on the Australian clothing industry, focusing on market trends, sales, and consumer data.", link: "https://public.tableau.com/views/Section_4_Clothes_Industry_Australia/FinalPresentation?:language=en-GB&publish=yes&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link", thumbnail: "assets/img/Clothing Industry - AUS.png", image: "assets/img/Clothing Industry - AUS.png", tags: ["Python", "Tableau", "Excel", "Mysql", "Numpy", "Pandas"] }
+            ];
+
             const projectCardsContainer = document.getElementById('project-cards-container');
 
             function renderProjects() {
                 projectCardsContainer.innerHTML = '';
                 projects.forEach((project) => {
-                    let gridClasses = 'project-card-bento relative group rounded-2xl overflow-hidden bg-slate-100 dark:bg-slate-900 ';
-                    switch(project.size) {
-                        case 'large': gridClasses += 'md:col-span-2 md:row-span-2'; break;
-                        case 'wide': gridClasses += 'md:col-span-2'; break;
-                        default: gridClasses += ''; break;
-                    }
-
-                    const card = document.createElement('a');
-                    card.className = gridClasses;
-                    card.href = project.link;
-                    card.target = "_blank";
-                    card.rel = "noopener noreferrer";
-
-                    card.innerHTML = `
-                        <img src="${project.thumbnail}" alt="${project.title}" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-110">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-                        <div class="absolute inset-0 p-6 flex flex-col justify-end">
-                            <h3 class="text-xl font-bold text-white">${project.title}</h3>
-                            <p class="text-slate-200 text-sm mt-1">${project.description}</p>
-                             <div class="flex flex-wrap gap-2 mt-4">
-                                ${project.tags.map(tag => `<span class="tech-badge">${tag}</span>`).join('')}
+                    const cardWrapper = document.createElement('a');
+                    // Add 'relative' to the group wrapper to position the popup
+                    cardWrapper.className = 'group w-full block relative';
+                    cardWrapper.href = project.link;
+                    cardWrapper.target = "_blank";
+                    cardWrapper.rel = "noopener noreferrer";
+                    
+                    cardWrapper.innerHTML = `
+                        <!-- The Project Card: moves left on hover -->
+                        <div class="project-card flex flex-col sm:flex-row items-center gap-6 w-full p-4 sm:p-5 rounded-xl border border-slate-200/80 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 transition-all duration-300 transform-gpu group-hover:bg-white dark:group-hover:bg-slate-800/50 group-hover:shadow-xl group-hover:-translate-x-4">
+                            <div class="w-24 h-24 flex-shrink-0 bg-slate-100 dark:bg-slate-800 rounded-lg overflow-hidden shadow-sm">
+                                <img src="${project.thumbnail}" alt="${project.title} thumbnail" class="w-full h-full object-cover">
+                            </div>
+                            <div class="flex-grow w-full">
+                                <h3 class="text-lg font-bold text-slate-900 dark:text-slate-100">${project.title}</h3>
+                                <p class="text-slate-600 dark:text-slate-400 text-sm mt-1 mb-4">${project.description}</p>
+                                <div class="flex flex-wrap gap-2">
+                                    ${project.tags.map(tag => `<span class="tech-badge">${tag}</span>`).join('')}
+                                </div>
+                            </div>
+                            <div class="hidden sm:block ml-auto flex-shrink-0 self-center pl-4">
+                                <i class="fas fa-arrow-right text-slate-400 dark:text-slate-500 transition-transform duration-300 group-hover:translate-x-1"></i>
                             </div>
                         </div>
-                        <div class="absolute top-4 right-4 w-12 h-12 bg-white/20 dark:bg-black/20 backdrop-blur-sm rounded-full p-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                           <svg viewBox="0 0 24 24" class="w-full h-full text-white">
-                              <rect class="bar" x="4" y="10" width="3" height="10" rx="1" style="transform-origin: bottom; transform: scaleY(0.6); transition: transform 0.4s ease .1s;"></rect>
-                              <rect class="bar" x="10" y="4" width="3" height="16" rx="1" style="transform-origin: bottom; transform: scaleY(1); transition: transform 0.4s ease .2s;"></rect>
-                              <rect class="bar" x="16" y="14" width="3" height="6" rx="1" style="transform-origin: bottom; transform: scaleY(0.3); transition: transform 0.4s ease .3s;"></rect>
-                           </svg>
+
+                        <!-- The Popup Preview Image: appears on hover -->
+                        <div class="hidden lg:block absolute left-full top-1/2 -translate-y-1/2 ml-6 w-80 aspect-video bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg shadow-2xl overflow-hidden pointer-events-none z-50 transition-all duration-300 transform-gpu opacity-0 scale-95 invisible group-hover:opacity-100 group-hover:scale-100 group-hover:visible">
+                            <img src="${project.image}" alt="${project.title} Preview" class="w-full h-full object-cover">
                         </div>
                     `;
-                    projectCardsContainer.appendChild(card);
+                    projectCardsContainer.appendChild(cardWrapper);
                 });
             }
-            renderProjects();
 
+            renderProjects();
+            
             // --- Skills Data and Rendering ---
             const skillsData = {
-                languages: [ { name: 'Python', light_icon: 'assets/img/Tools/Python.png', dark_icon: 'assets/img/Tools/Inverted/Python.png' }, { name: 'MySQL', light_icon: 'assets/img/Tools/MySQL.png', dark_icon: 'assets/img/Tools/Inverted/MySQL.png' }, { name: 'R', light_icon: 'assets/img/Tools/R.png', dark_icon: 'assets/img/Tools/Inverted/R.png' }, { name: 'MongoDB', light_icon: 'assets/img/Tools/MongoDB.png', dark_icon: 'assets/img/Tools/Inverted/MongoDB.png' } ],
-                libraries: [ { name: 'Pandas', light_icon: 'assets/img/Tools/pandas.png', dark_icon: 'assets/img/Tools/Inverted/pandas.png' }, { name: 'NumPy', light_icon: 'assets/img/Tools/numpy.png', dark_icon: 'assets/img/Tools/Inverted/numpy.png' }, { name: 'Matplotlib', light_icon: 'assets/img/Tools/Matplotlib.png', dark_icon: 'assets/img/Tools/Inverted/Matplotlib.png' }, { name: 'Seaborn', light_icon: 'assets/img/Tools/seaborn.png', dark_icon: 'assets/img/Tools/Inverted/seaborn.png' }, { name: 'Beautiful Soup', light_icon: 'assets/img/Tools/BeautifulSoup.png', dark_icon: 'assets/img/Tools/Inverted/BeautifulSoup.png' }, { name: 'TensorFlow', light_icon: 'assets/img/Tools/TensorFlow.png', dark_icon: 'assets/img/Tools/Inverted/TensorFlow.png' }, { name: 'PyTorch', light_icon: 'assets/img/Tools/PyTorch.png', dark_icon: 'assets/img/Tools/Inverted/PyTorch.png' }, ],
-                tools: [ { name: 'Tableau', light_icon: 'assets/img/Tools/Tableau.png', dark_icon: 'assets/img/Tools/Inverted/Tableau.png' }, { name: 'Power BI', light_icon: 'assets/img/Tools/PowerBI.png', dark_icon: 'assets/img/Tools/Inverted/PowerBI.png' }, { name: 'Excel', light_icon: 'assets/img/Tools/Excel.png', dark_icon: 'assets/img/Tools/Inverted/Excel.png' }, { name: 'Google Sheets', light_icon: 'assets/img/Tools/GoogleSheets.png', dark_icon: 'assets/img/Tools/Inverted/GoogleSheets.png' }, { name: 'Git', light_icon: 'assets/img/Tools/Git.png', dark_icon: 'assets/img/Tools/Inverted/Git.png' }, { name: 'Jupyter', light_icon: 'assets/img/Tools/Jupyter.png', dark_icon: 'assets/img/Tools/Inverted/Jupyter.png' }, { name: 'Apache Airflow', light_icon: 'assets/img/Tools/ApacheAirflow.png', dark_icon: 'assets/img/Tools/Inverted/ApacheAirflow.png'}, { name: 'Microsoft Suite', light_icon: 'assets/img/Tools/MicrosoftSuite.png', dark_icon: 'assets/img/Tools/Inverted/MicrosoftSuite.png' } ],
+                languages: [
+                    { name: 'Python', light_icon: 'assets/img/Tools/Python.png', dark_icon: 'assets/img/Tools/Inverted/Python.png' },
+                    { name: 'MySQL', light_icon: 'assets/img/Tools/MySQL.png', dark_icon: 'assets/img/Tools/Inverted/MySQL.png' },
+                    { name: 'R', light_icon: 'assets/img/Tools/R.png', dark_icon: 'assets/img/Tools/Inverted/R.png' },
+                    { name: 'MongoDB', light_icon: 'assets/img/Tools/MongoDB.png', dark_icon: 'assets/img/Tools/Inverted/MongoDB.png' }
+                ],
+                libraries: [
+                    { name: 'Pandas', light_icon: 'assets/img/Tools/pandas.png', dark_icon: 'assets/img/Tools/Inverted/pandas.png' },
+                    { name: 'NumPy', light_icon: 'assets/img/Tools/numpy.png', dark_icon: 'assets/img/Tools/Inverted/numpy.png' },
+                    { name: 'Matplotlib', light_icon: 'assets/img/Tools/Matplotlib.png', dark_icon: 'assets/img/Tools/Inverted/Matplotlib.png' },
+                    { name: 'Seaborn', light_icon: 'assets/img/Tools/seaborn.png', dark_icon: 'assets/img/Tools/Inverted/seaborn.png' },
+                    { name: 'Beautiful Soup', light_icon: 'assets/img/Tools/BeautifulSoup.png', dark_icon: 'assets/img/Tools/Inverted/BeautifulSoup.png' },
+                    { name: 'TensorFlow', light_icon: 'assets/img/Tools/TensorFlow.png', dark_icon: 'assets/img/Tools/Inverted/TensorFlow.png' },
+                    { name: 'PyTorch', light_icon: 'assets/img/Tools/PyTorch.png', dark_icon: 'assets/img/Tools/Inverted/PyTorch.png' },
+                ],
+                tools: [
+                    { name: 'Tableau', light_icon: 'assets/img/Tools/Tableau.png', dark_icon: 'assets/img/Tools/Inverted/Tableau.png' },
+                    { name: 'Power BI', light_icon: 'assets/img/Tools/PowerBI.png', dark_icon: 'assets/img/Tools/Inverted/PowerBI.png' },
+                    { name: 'Excel', light_icon: 'assets/img/Tools/Excel.png', dark_icon: 'assets/img/Tools/Inverted/Excel.png' },
+                    { name: 'Google Sheets', light_icon: 'assets/img/Tools/GoogleSheets.png', dark_icon: 'assets/img/Tools/Inverted/GoogleSheets.png' },
+                    { name: 'Git', light_icon: 'assets/img/Tools/Git.png', dark_icon: 'assets/img/Tools/Inverted/Git.png' },
+                    { name: 'Jupyter', light_icon: 'assets/img/Tools/Jupyter.png', dark_icon: 'assets/img/Tools/Inverted/Jupyter.png' },
+                    { name: 'Apache Airflow', light_icon: 'assets/img/Tools/ApacheAirflow.png', dark_icon: 'assets/img/Tools/Inverted/ApacheAirflow.png'},
+                    { name: 'Microsoft Suite', light_icon: 'assets/img/Tools/MicrosoftSuite.png', dark_icon: 'assets/img/Tools/Inverted/MicrosoftSuite.png' }
+                ],
             };
             const skillsContainer = document.getElementById('skills-container');
+
             function renderSkills() {
                 skillsContainer.innerHTML = '';
                 Object.keys(skillsData).forEach(categoryKey => {
                     const category = skillsData[categoryKey];
-                    const wrapper = document.createElement('div');
-                    wrapper.className = 'skill-category-wrapper';
-                    
                     const title = document.createElement('h3');
                     title.className = 'skill-category-title';
-                    title.textContent = categoryKey.charAt(0).toUpperCase() + categoryKey.slice(1);
-                    wrapper.appendChild(title);
+                    const formattedTitle = categoryKey.charAt(0).toUpperCase() + categoryKey.slice(1);
+                    title.textContent = formattedTitle;
+                    skillsContainer.appendChild(title);
                     
                     const grid = document.createElement('div');
                     grid.className = 'skill-badge-container';
-                    wrapper.appendChild(grid);
+                    skillsContainer.appendChild(grid);
 
                     category.forEach(skill => {
                         const item = document.createElement('div');
                         item.className = 'skill-item';
-                        let iconHtml = skill.light_icon ? `<img src="${skill.light_icon}" alt="${skill.name} logo" class="w-full h-full object-contain theme-aware-skill-logo" data-light-src="${skill.light_icon}" data-dark-src="${skill.dark_icon}">` : skill.icon_svg;
+                        
+                        let iconHtml = '';
+                        if (skill.light_icon) {
+                            iconHtml = `<img src="${skill.light_icon}" alt="${skill.name} logo" class="w-full h-full object-contain theme-aware-skill-logo" data-light-src="${skill.light_icon}" data-dark-src="${skill.dark_icon}">`;
+                        } else if (skill.icon_svg) {
+                            iconHtml = skill.icon_svg;
+                        }
+
                         item.innerHTML = `<div class="skill-icon">${iconHtml}</div><span>${skill.name}</span>`;
                         grid.appendChild(item);
                     });
-                    skillsContainer.appendChild(wrapper);
                 });
             }
             renderSkills();
 
-            // --- Final Setup ---
+            // --- Initial Setup ---
             document.getElementById('current-year').textContent = new Date().getFullYear();
+            // Set initial images based on theme from localStorage
             updateThemeImages(); 
         });
     </script>
