@@ -167,11 +167,6 @@
             </div>
         </section>
 
-        <!-- Floating Preview Image for Project Hover -->
-        <div id="floating-preview" class="hidden lg:block fixed w-80 aspect-video bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg shadow-2xl overflow-hidden pointer-events-none z-50 transition-all duration-100 ease-out">
-            <img id="floating-preview-image" src="" alt="Project Preview" class="w-full h-full object-cover">
-        </div>
-
         <!-- Divider -->
         <hr class="max-w-xl mx-auto border-t border-slate-200 dark:border-slate-800">
         
@@ -348,7 +343,6 @@
                     }
                 });
 
-                // Special case for the inverted REV logo
                 const revLogo = document.querySelector('.client-logo[alt="REV Logo"]');
                 if (revLogo) {
                     revLogo.classList.toggle('dark:invert', !isDark);
@@ -433,25 +427,20 @@
             ];
 
             const projectCardsContainer = document.getElementById('project-cards-container');
-            const floatingPreview = document.getElementById('floating-preview');
-            const floatingPreviewImage = document.getElementById('floating-preview-image');
 
             function renderProjects() {
                 projectCardsContainer.innerHTML = '';
-                projects.forEach((project, index) => {
+                projects.forEach((project) => {
                     const cardWrapper = document.createElement('a');
-                    cardWrapper.className = 'group w-full block';
+                    // Add 'relative' to the group wrapper to position the popup
+                    cardWrapper.className = 'group w-full block relative';
                     cardWrapper.href = project.link;
                     cardWrapper.target = "_blank";
                     cardWrapper.rel = "noopener noreferrer";
-                    cardWrapper.dataset.index = index; 
-
-                    cardWrapper.addEventListener('mouseenter', handleCardMouseEnter);
-                    cardWrapper.addEventListener('mousemove', handleCardMouseMove);
-                    cardWrapper.addEventListener('mouseleave', handleCardMouseLeave);
                     
                     cardWrapper.innerHTML = `
-                        <div class="project-card flex flex-col sm:flex-row items-center gap-6 w-full p-4 sm:p-5 rounded-xl border border-slate-200/80 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 transition-all duration-300 transform-gpu group-hover:bg-white dark:group-hover:bg-slate-800/50 group-hover:shadow-xl group-hover:-translate-y-1">
+                        <!-- The Project Card: moves left on hover -->
+                        <div class="project-card flex flex-col sm:flex-row items-center gap-6 w-full p-4 sm:p-5 rounded-xl border border-slate-200/80 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 transition-all duration-300 transform-gpu group-hover:bg-white dark:group-hover:bg-slate-800/50 group-hover:shadow-xl group-hover:-translate-x-4">
                             <div class="w-24 h-24 flex-shrink-0 bg-slate-100 dark:bg-slate-800 rounded-lg overflow-hidden shadow-sm">
                                 <img src="${project.thumbnail}" alt="${project.title} thumbnail" class="w-full h-full object-cover">
                             </div>
@@ -466,25 +455,16 @@
                                 <i class="fas fa-arrow-right text-slate-400 dark:text-slate-500 transition-transform duration-300 group-hover:translate-x-1"></i>
                             </div>
                         </div>
+
+                        <!-- The Popup Preview Image: appears on hover -->
+                        <div class="hidden lg:block absolute left-full top-1/2 -translate-y-1/2 ml-6 w-80 aspect-video bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg shadow-2xl overflow-hidden pointer-events-none z-50 transition-all duration-300 transform-gpu opacity-0 scale-95 invisible group-hover:opacity-100 group-hover:scale-100 group-hover:visible">
+                            <img src="${project.image}" alt="${project.title} Preview" class="w-full h-full object-cover">
+                        </div>
                     `;
                     projectCardsContainer.appendChild(cardWrapper);
                 });
             }
 
-            function handleCardMouseEnter(event) {
-                const { index } = event.currentTarget.dataset;
-                const project = projects[index];
-                if (project.image) {
-                    floatingPreviewImage.src = project.image;
-                    floatingPreview.classList.remove('hidden');
-                }
-            }
-            function handleCardMouseMove(event) {
-                floatingPreview.style.transform = `translate(${event.clientX + 20}px, ${event.clientY - 40}px)`;
-            }
-            function handleCardMouseLeave() {
-                floatingPreview.classList.add('hidden');
-            }
             renderProjects();
             
             // --- Skills Data and Rendering ---
