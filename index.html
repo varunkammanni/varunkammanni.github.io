@@ -15,6 +15,10 @@
 
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- GSAP (GreenSock Animation Platform) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
     <!-- Theme Persistence Script -->
     <script>
@@ -30,17 +34,9 @@
         @layer base {
             html { font-family: 'Inter', sans-serif; }
             h1, h2, h3, h4, h5, h6 { font-family: 'Poppins', sans-serif; }
+            body { cursor: none; } /* Hide default cursor */
         }
         /* Custom Styles & Animations */
-        .animated-element {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-        }
-        .animated-element.is-visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
         .scroll-parallax {
             transition: transform 0.5s ease-out;
         }
@@ -51,9 +47,41 @@
         .animate-bounce-slow {
             animation: bounce 2s infinite;
         }
+        /* Custom Cursor */
+        #cursor-dot, #cursor-ring {
+            position: fixed;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 9999;
+            border-radius: 50%;
+            transition: transform 0.15s ease-out, opacity 0.2s ease-out;
+        }
+        #cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #475569; /* slate-600 */
+        }
+        .dark #cursor-dot {
+            background-color: #cbd5e1; /* slate-300 */
+        }
+        #cursor-ring {
+            width: 30px;
+            height: 30px;
+            border: 2px solid #94a3b8; /* slate-400 */
+            transform-origin: center;
+        }
+        #cursor-ring.active {
+            transform: scale(1.5);
+            opacity: 0.5;
+        }
     </style>
 </head>
 <body class="bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-300 transition-colors duration-300">
+    
+    <!-- Custom Cursor Elements -->
+    <div id="cursor-dot"></div>
+    <div id="cursor-ring"></div>
 
     <!-- Scroll Progress Indicator -->
     <div id="scroll-progress-container" class="hidden md:block fixed top-1/2 -translate-y-1/2 left-5 lg:left-8 h-48 w-1 bg-slate-200 dark:bg-slate-700 rounded-full z-50">
@@ -61,29 +89,29 @@
     </div>
 
     <!-- Header & Navigation -->
-    <header id="header" class="fixed top-0 left-0 right-0 z-40 transition-shadow duration-300 bg-slate-900">
+    <header id="header" class="fixed top-0 left-0 right-0 z-40 transition-all duration-300">
         <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <!-- Left Aligned Name -->
                 <div class="flex-1">
-                     <a href="#home" class="text-xl font-bold font-['Poppins'] tracking-tight text-white">VK</a>
+                     <a href="#home" class="interactive text-xl font-bold font-['Poppins'] tracking-tight text-white">VK</a>
                 </div>
                 <!-- Center Aligned Nav -->
                 <nav class="hidden md:flex items-center justify-center space-x-6 lg:space-x-8">
-                    <a href="#projects" class="nav-link">Projects</a>
-                    <a href="#experience" class="nav-link">Experience</a>
-                    <a href="#education" class="nav-link">Education</a>
-                    <a href="#skills" class="nav-link">Skills</a>
-                    <a href="#contact" class="nav-link">Contact</a>
+                    <a href="#projects" class="interactive nav-link">Projects</a>
+                    <a href="#experience" class="interactive nav-link">Experience</a>
+                    <a href="#education" class="interactive nav-link">Education</a>
+                    <a href="#skills" class="interactive nav-link">Skills</a>
+                    <a href="#contact" class="interactive nav-link">Contact</a>
                 </nav>
                 <!-- Right Aligned Icons -->
                 <div class="flex-1 flex justify-end">
                     <div class="flex items-center space-x-4">
-                        <button id="theme-toggle" aria-label="Toggle color theme" class="w-10 h-10 rounded-lg flex items-center justify-center text-slate-300 hover:bg-slate-800 transition-colors">
+                        <button id="theme-toggle" aria-label="Toggle color theme" class="interactive w-10 h-10 rounded-lg flex items-center justify-center text-slate-300 hover:bg-slate-800 transition-colors">
                             <i id="theme-icon-sun" class="fas fa-sun"></i>
                             <i id="theme-icon-moon" class="fas fa-moon hidden"></i>
                         </button>
-                        <button id="mobile-menu-button" aria-label="Open navigation menu" aria-controls="mobile-menu" aria-expanded="false" class="md:hidden w-10 h-10 flex items-center justify-center text-slate-300">
+                        <button id="mobile-menu-button" aria-label="Open navigation menu" aria-controls="mobile-menu" aria-expanded="false" class="interactive md:hidden w-10 h-10 flex items-center justify-center text-slate-300">
                             <i class="fas fa-bars text-xl"></i>
                         </button>
                     </div>
@@ -95,12 +123,12 @@
     <!-- Mobile Menu -->
     <div id="mobile-menu" class="hidden fixed inset-0 bg-white dark:bg-slate-950 z-30 p-4">
         <div class="flex flex-col items-center justify-center h-full space-y-8">
-            <a href="#home" class="mobile-menu-link text-2xl font-semibold">Home</a>
-            <a href="#projects" class="mobile-menu-link text-2xl font-semibold">Projects</a>
-            <a href="#experience" class="mobile-menu-link text-2xl font-semibold">Experience</a>
-            <a href="#education" class="mobile-menu-link text-2xl font-semibold">Education</a>
-            <a href="#skills" class="mobile-menu-link text-2xl font-semibold">Skills</a>
-            <a href="#contact" class="mobile-menu-link text-2xl font-semibold">Contact</a>
+            <a href="#home" class="interactive mobile-menu-link text-2xl font-semibold">Home</a>
+            <a href="#projects" class="interactive mobile-menu-link text-2xl font-semibold">Projects</a>
+            <a href="#experience" class="interactive mobile-menu-link text-2xl font-semibold">Experience</a>
+            <a href="#education" class="interactive mobile-menu-link text-2xl font-semibold">Education</a>
+            <a href="#skills" class="interactive mobile-menu-link text-2xl font-semibold">Skills</a>
+            <a href="#contact" class="interactive mobile-menu-link text-2xl font-semibold">Contact</a>
         </div>
     </div>
 
@@ -111,41 +139,41 @@
             
             <!-- Stats Block -->
             <div class="hidden lg:flex flex-col gap-8 fixed top-1/2 -translate-y-1/2 right-5 lg:right-8 z-50">
-                <div class="stat-item text-right">
-                    <p class="text-xl font-bold text-slate-900 dark:text-white">4+</p>
+                <div class="stat-item interactive text-right">
+                    <p class="stat-number text-xl font-bold text-slate-900 dark:text-white" data-final-value="4">0+</p>
                     <p class="text-xs text-slate-500 dark:text-slate-400">Years of Experience</p>
                 </div>
-                 <div class="stat-item text-right">
-                    <p class="text-xl font-bold text-slate-900 dark:text-white">12+</p>
+                 <div class="stat-item interactive text-right">
+                    <p class="stat-number text-xl font-bold text-slate-900 dark:text-white" data-final-value="12">0+</p>
                     <p class="text-xs text-slate-500 dark:text-slate-400">Completed Projects</p>
                 </div>
-                 <div class="stat-item text-right">
-                    <p class="text-xl font-bold text-slate-900 dark:text-white">10K+</p>
+                 <div class="stat-item interactive text-right">
+                    <p class="stat-number text-xl font-bold text-slate-900 dark:text-white" data-final-value="10000" data-format-k="true">0K+</p>
                     <p class="text-xs text-slate-500 dark:text-slate-400">Hours Worked</p>
                 </div>
             </div>
 
             <div class="w-full max-w-4xl">
-                <div class="animated-element">
+                <div class="home-animation-group">
                     <h1 class="text-5xl md:text-7xl font-bold tracking-tighter mb-4 text-slate-900 dark:text-slate-100">Varun Kammanni</h1>
                     <p class="text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
                         <span class="text-2xl md:text-2xl font-bold text-slate-800 dark:text-slate-200">Data Analyst</span><br/>
                         <span class="block">Turning Data into Actionable Insights</span>
                     </p>
                     <div class="mt-8 flex justify-center space-x-6">
-                        <a href="https://www.linkedin.com/in/varunkammanni/" target="_blank" class="social-icon"><i class="fab fa-linkedin fa-2x"></i></a>
-                        <a href="https://github.com/varunkammanni" target="_blank" class="social-icon"><i class="fab fa-github fa-2x"></i></a>
-                        <a href="mailto:varunkammanni@gmail.com" class="social-icon"><i class="fas fa-envelope fa-2x"></i></a>
+                        <a href="https://www.linkedin.com/in/varunkammanni/" target="_blank" class="interactive social-icon"><i class="fab fa-linkedin fa-2x"></i></a>
+                        <a href="https://github.com/varunkammanni" target="_blank" class="interactive social-icon"><i class="fab fa-github fa-2x"></i></a>
+                        <a href="mailto:varunkammanni@gmail.com" class="interactive social-icon"><i class="fas fa-envelope fa-2x"></i></a>
                     </div>
                 </div>
                 
-                <div class="animated-element mt-12 max-w-3xl mx-auto text-center leading-relaxed text-slate-700 dark:text-slate-300">
+                <div class="home-animation-group mt-12 max-w-3xl mx-auto text-center leading-relaxed text-slate-700 dark:text-slate-300">
                      <p>
                         I am a detail-oriented Data Analyst with a passion for uncovering the stories hidden within data. My expertise lies in cleaning, transforming, and visualizing complex datasets to drive data-informed decision-making. With a strong background in SQL, Python, and data visualization tools like Tableau and Power BI, I excel at turning raw numbers into clear, actionable insights.
                     </p>
                 </div>
             </div>
-            <a href="#projects" class="absolute bottom-10 animate-bounce-slow">
+            <a href="#projects" class="interactive absolute bottom-10 animate-bounce-slow">
                 <div class="w-10 h-16 rounded-full border-2 border-slate-300 dark:border-slate-600 flex items-center justify-center">
                     <i class="fas fa-arrow-down text-slate-500 dark:text-slate-400"></i>
                 </div>
@@ -162,8 +190,9 @@
                     Selected Projects
                 </h2>
             </div>
-            <div id="project-cards-container" class="max-w-4xl mx-auto px-4 flex flex-col items-center gap-8">
-                <!-- Cards will be generated by JS here -->
+            <!-- Bento Grid Container -->
+            <div id="project-cards-container" class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Project cards will be dynamically generated here -->
             </div>
         </section>
 
@@ -173,7 +202,7 @@
         <!-- Experience Section -->
         <section id="experience" class="py-20 md:py-32 max-w-4xl mx-auto">
             <h2 class="section-title scroll-parallax">Experience</h2>
-            <div class="animated-element max-w-3xl mx-auto space-y-8 relative">
+            <div class="max-w-3xl mx-auto space-y-8 relative">
                 <div class="absolute left-3 top-0 bottom-0 w-0.5 bg-slate-200 dark:bg-slate-700 mt-2"></div>
                 
                 <!-- Experience Item 1 -->
@@ -242,10 +271,10 @@
 
         <!-- Client Logos Section -->
         <section id="clients" class="py-16">
-            <h3 class="text-center text-sm font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-10">
+            <h3 class="section-title uppercase tracking-widest text-sm">
                 Companies & Projects I've Contributed To
             </h3>
-            <div class="max-w-5xl mx-auto flex flex-wrap justify-center items-center gap-x-12 sm:gap-x-24 gap-y-16">
+            <div class="max-w-5xl mx-auto flex flex-wrap justify-center items-center gap-x-12 sm:gap-x-24 gap-y-16 client-logos">
                 <img src="assets/img/B&W/Cognizant.png" alt="Cognizant Logo" class="client-logo theme-aware-logo" data-light-src="assets/img/B&W/Cognizant.png" data-dark-src="assets/img/B&W/Inverted/Cognizant.png" style="transform: scale(2.2);">
                 <img src="assets/img/B&W/HealthNet.png" alt="Health Net Logo" class="client-logo theme-aware-logo" data-light-src="assets/img/B&W/HealthNet.png" data-dark-src="assets/img/B&W/Inverted/HealthNet.png" style="transform: scale(2.2);">
                 <img src="assets/img/B&W/Allegis.png" alt="Allegis Group Logo" class="client-logo theme-aware-logo" data-light-src="assets/img/B&W/Allegis.png" data-dark-src="assets/img/B&W/Inverted/Allegis.png">
@@ -262,7 +291,7 @@
         <!-- Education & Certifications Section -->
         <section id="education" class="py-20 md:py-32 max-w-4xl mx-auto">
             <h2 class="section-title scroll-parallax">Education & Certifications</h2>
-            <div class="animated-element max-w-3xl mx-auto space-y-10">
+            <div class="max-w-3xl mx-auto space-y-10 education-content">
                 <!-- Education Block -->
                 <div class="space-y-6">
                     <div>
@@ -295,7 +324,7 @@
         <!-- Skills Section -->
         <section id="skills" class="py-20 md:py-32 max-w-4xl mx-auto">
             <h2 class="section-title scroll-parallax">Analytical Toolkit</h2>
-            <div id="skills-container" class="animated-element max-w-4xl mx-auto space-y-12">
+            <div id="skills-container" class="max-w-5xl mx-auto space-y-12">
                 <!-- Skills will be generated here by JS -->
             </div>
         </section>
@@ -305,27 +334,27 @@
 
         <!-- Contact Section -->
         <section id="contact" class="py-20 md:py-32 text-center max-w-4xl mx-auto">
-            <div class="animated-element">
+            <div class="contact-content">
                 <h2 class="section-title">Let's Connect</h2>
                 <p class="max-w-2xl mx-auto text-slate-600 dark:text-slate-400 mb-8">I am always excited to discuss new projects or data challenges. Below are the best ways to reach me.</p>
                 
                 <!-- Contact Details -->
                 <div class="my-10 flex flex-col md:flex-row items-center justify-center gap-6 md:gap-10">
-                    <a href="tel:+14373661006" class="contact-item">
+                    <a href="tel:+14373661006" class="interactive contact-item">
                         <i class="fas fa-phone fa-lg mr-3"></i>
                         <span>+1 (437) 366-1006</span>
                     </a>
-                    <a href="mailto:varunkammanni@gmail.com" class="contact-item">
+                    <a href="mailto:varunkammanni@gmail.com" class="interactive contact-item">
                         <i class="fas fa-envelope fa-lg mr-3"></i>
                         <span>varunkammanni@gmail.com</span>
                     </a>
-                    <a href="https://www.google.com/maps/search/?api=1&query=8+Telegram+Mews+Toronto+ON" target="_blank" rel="noopener noreferrer" class="contact-item">
+                    <a href="https://www.google.com/maps/search/?api=1&query=8+Telegram+Mews+Toronto+ON" target="_blank" rel="noopener noreferrer" class="interactive contact-item">
                         <i class="fas fa-map-marker-alt fa-lg mr-3"></i>
                         <span>8 Telegram Mews, Toronto, ON</span>
                     </a>
                 </div>
 
-                <a href="mailto:varunkammanni@gmail.com" class="cta-button">Email Me <i class="fas fa-paper-plane ml-2"></i></a>
+                <a href="mailto:varunkammanni@gmail.com" class="interactive cta-button">Email Me <i class="fas fa-paper-plane ml-2"></i></a>
             </div>
         </section>
     </main>
@@ -379,26 +408,36 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            gsap.registerPlugin(ScrollTrigger);
             const docEl = document.documentElement;
 
-            // --- Function to update images based on theme ---
+            // --- 1. Custom Cursor ---
+            const cursorDot = document.getElementById('cursor-dot');
+            const cursorRing = document.getElementById('cursor-ring');
+
+            gsap.set(cursorDot, { xPercent: -50, yPercent: -50 });
+            gsap.set(cursorRing, { xPercent: -50, yPercent: -50 });
+
+            window.addEventListener('mousemove', e => {
+                gsap.to(cursorDot, 0.1, { x: e.clientX, y: e.clientY });
+                gsap.to(cursorRing, 0.4, { x: e.clientX, y: e.clientY, ease: 'power2.out' });
+            });
+
+            document.querySelectorAll('.interactive').forEach(el => {
+                el.addEventListener('mouseenter', () => cursorRing.classList.add('active'));
+                el.addEventListener('mouseleave', () => cursorRing.classList.remove('active'));
+            });
+
+
+            // --- 2. Theme Management ---
             const updateThemeImages = () => {
                 const isDark = docEl.classList.contains('dark');
-                const imagesToSwap = document.querySelectorAll('.theme-aware-logo, .theme-aware-skill-logo');
-
-                imagesToSwap.forEach(img => {
+                document.querySelectorAll('.theme-aware-logo, .theme-aware-skill-logo').forEach(img => {
                     if (img.dataset.lightSrc && img.dataset.darkSrc) {
                         img.src = isDark ? img.dataset.darkSrc : img.dataset.lightSrc;
                     }
                 });
-
-                const revLogo = document.querySelector('.client-logo[alt="REV Logo"]');
-                if (revLogo) {
-                    revLogo.classList.toggle('dark:invert', !isDark);
-                }
             };
-
-            // --- Theme Toggler ---
             const themeToggleBtn = document.getElementById('theme-toggle');
             const sunIcon = document.getElementById('theme-icon-sun');
             const moonIcon = document.getElementById('theme-icon-moon');
@@ -406,181 +445,224 @@
                 if (docEl.classList.contains('dark')) { sunIcon.classList.add('hidden'); moonIcon.classList.remove('hidden'); } 
                 else { sunIcon.classList.remove('hidden'); moonIcon.classList.add('hidden'); }
             };
-            updateIcon(); // Set initial icon
-            
+            updateIcon();
             themeToggleBtn.addEventListener('click', () => {
                 docEl.classList.toggle('dark');
                 localStorage.setItem('theme', docEl.classList.contains('dark') ? 'dark' : 'light');
                 updateIcon();
-                updateThemeImages(); // Update images on toggle
+                updateThemeImages();
             });
 
-            // --- Mobile Menu ---
+            // --- 3. Mobile Menu ---
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
-            const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
-            mobileMenuButton.addEventListener('click', () => {
-                const isHidden = mobileMenu.classList.toggle('hidden');
-                mobileMenuButton.setAttribute('aria-expanded', !isHidden);
-            });
-            mobileMenuLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    mobileMenu.classList.add('hidden');
-                    mobileMenuButton.setAttribute('aria-expanded', 'false');
+            document.querySelectorAll('.mobile-menu-link, #mobile-menu-button').forEach(el => {
+                 el.addEventListener('click', () => {
+                    const isHidden = mobileMenu.classList.toggle('hidden');
+                    mobileMenuButton.setAttribute('aria-expanded', !isHidden);
                 });
             });
 
-            // --- Header shadow on scroll ---
+            // --- 4. Header & Scroll Effects ---
             const header = document.getElementById('header');
-            const handleHeaderScroll = () => {
-                header.classList.toggle('shadow-lg', window.scrollY > 10);
-            };
-
-            // --- Scroll Progress Bar & Parallax ---
+            ScrollTrigger.create({
+                start: 'top top',
+                end: 99999,
+                onUpdate: (self) => {
+                    if (self.scroll() > 10) {
+                        header.style.backgroundColor = 'rgba(2, 6, 23, 0.75)'; // dark:bg-slate-950 with transparency
+                        header.style.webkitBackdropFilter = 'blur(8px)';
+                        header.style.backdropFilter = 'blur(8px)';
+                        header.style.boxShadow = '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)';
+                    } else {
+                        header.style.backgroundColor = 'transparent';
+                        header.style.webkitBackdropFilter = 'none';
+                        header.style.backdropFilter = 'none';
+                        header.style.boxShadow = 'none';
+                    }
+                }
+            });
             const progressBar = document.getElementById('scroll-progress-bar');
-            const parallaxElements = document.querySelectorAll('.scroll-parallax');
-            const handleScrollEffects = () => {
-                const scrollTop = window.scrollY;
+            window.addEventListener('scroll', () => {
                 const docHeight = docEl.scrollHeight;
                 const winHeight = window.innerHeight;
-                progressBar.style.height = `${(scrollTop / (docHeight - winHeight)) * 100}%`;
-                parallaxElements.forEach(el => {
-                    const rect = el.getBoundingClientRect();
-                    const move = ((rect.top + rect.height / 2) - (winHeight / 2)) * -0.05;
-                    el.style.transform = `translateY(${move}px)`;
-                });
-            };
-            
-            window.addEventListener('scroll', () => { handleHeaderScroll(); handleScrollEffects(); }, { passive: true });
-            handleHeaderScroll();
+                progressBar.style.height = `${(window.scrollY / (docHeight - winHeight)) * 100}%`;
+            }, { passive: true });
 
-            // --- Fade-in on Scroll Animation ---
-            const animatedElements = document.querySelectorAll('.animated-element');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('is-visible');
-                        observer.unobserve(entry.target);
+            
+            // --- 5. GSAP Animations ---
+            // Home Section
+            gsap.from(".home-animation-group > *", { 
+                opacity: 0, 
+                y: 30, 
+                duration: 0.8, 
+                stagger: 0.2,
+                ease: 'power3.out'
+            });
+            // Section Titles
+            gsap.utils.toArray(".section-title").forEach(title => {
+                gsap.from(title, {
+                    scrollTrigger: { trigger: title, start: "top 85%", toggleActions: "play none none none" },
+                    opacity: 0, y: 40, duration: 0.8, ease: 'power3.out'
+                });
+            });
+            // Stats (Side)
+            gsap.from(".stat-item", {
+                scrollTrigger: { trigger: ".stat-item", start: "top 85%", toggleActions: "play none none none" },
+                opacity: 0, x: 30, duration: 0.6, stagger: 0.2, ease: 'power3.out'
+            });
+            // Counting Numbers
+            gsap.utils.toArray(".stat-number").forEach(el => {
+                const finalValue = parseInt(el.dataset.finalValue);
+                const formatK = el.dataset.formatK === 'true';
+                let counter = { val: 0 };
+                
+                gsap.to(counter, {
+                    scrollTrigger: { trigger: el, start: "top 90%", toggleActions: "play none none none" },
+                    val: finalValue,
+                    duration: 2,
+                    ease: "power1.out",
+                    onUpdate: () => {
+                         if (formatK) {
+                            el.textContent = (counter.val/1000).toFixed(0) + "K+";
+                        } else {
+                            el.textContent = Math.ceil(counter.val) + "+";
+                        }
                     }
                 });
-            }, { threshold: 0.1 });
-            animatedElements.forEach(el => observer.observe(el));
-            
-            // --- Project Data ---
-            const projects = [
-                { title: "Retail Sales - USA", description: "An in-depth analysis of retail sales data, identifying trends and regional patterns.", link: "https://public.tableau.com/views/Section_6_Retail_Sales_USA_17519498877730/Dashboard1?:language=en-GB&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link", thumbnail: "assets/img/Retail_Sales_USA.png", image: "assets/img/Retail_Sales_USA.png", tags: ["Python", "Numpy", "Pandas", "Mysql", "Tableau"] },
-                { title: "Coal Mining Industry", description: "A detailed report on the coal mining industry, visualizing production, employment, and economic impact data.", link: "https://public.tableau.com/views/Section_3_Coal_Mining_V3/Report?:language=en-GB&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link", thumbnail: "assets/img/Coal Mining Industry.png", image: "assets/img/Coal Mining Industry.png", tags: ["Python", "Numpy", "Pandas", "matplotlib", "Tableau", "Excel", "PowerBI"] },
-                { title: "UK Bank Customers", description: "A story-driven dashboard analyzing the customer base of a UK bank, highlighting key segments and behaviors.", link: "https://public.tableau.com/views/UKBankCustomers_17519326212990/Story1?:language=en-GB&publish=yes&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link", thumbnail: "assets/img/UK Bank Customers.png", image: "assets/img/UK Bank Customers.png", tags: ["Tableau", "Excel", "Mysql", "Python", "Numpy", "Pandas"] },
-                { title: "World Demographics", description: "An animated dashboard showcasing population change over time, providing insights into growth and shifts.", link: "https://public.tableau.com/views/Section_5_World_Demo/Animation?:language=en-GB&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link", thumbnail: "assets/img/World_Demographics.png", image: "assets/img/World_Demographics.png", tags: ["Python", "Numpy", "Pandas", "Tableau", "Excel", "PowerBI"] },
-                { title: "Clothing Industry - AUS", description: "A comprehensive presentation on the Australian clothing industry, focusing on market trends, sales, and consumer data.", link: "https://public.tableau.com/views/Section_4_Clothes_Industry_Australia/FinalPresentation?:language=en-GB&publish=yes&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link", thumbnail: "assets/img/Clothing Industry - AUS.png", image: "assets/img/Clothing Industry - AUS.png", tags: ["Python", "Tableau", "Excel", "Mysql", "Numpy", "Pandas"] }
-            ];
+            });
 
+            // Project Bento Grid
+            gsap.from(".project-card-bento", {
+                scrollTrigger: { trigger: "#project-cards-container", start: "top 80%", toggleActions: "play none none none" },
+                opacity: 0, y: 50, duration: 0.6, stagger: 0.15, ease: 'power3.out'
+            });
+
+            // Experience Timeline
+            gsap.from(".experience-item", {
+                scrollTrigger: { trigger: "#experience", start: "top 75%", toggleActions: "play none none none" },
+                opacity: 0, y: 50, duration: 0.7, stagger: 0.3, ease: 'power3.out'
+            });
+            
+            // Client Logos
+            gsap.from(".client-logo", {
+                scrollTrigger: { trigger: ".client-logos", start: "top 85%", toggleActions: "play none none none" },
+                opacity: 0, y: 30, duration: 0.5, stagger: 0.1, ease: 'power2.out'
+            });
+
+            // Education Content
+            gsap.from(".education-content > *", {
+                scrollTrigger: { trigger: ".education-content", start: "top 80%", toggleActions: "play none none none" },
+                opacity: 0, y: 40, duration: 0.7, stagger: 0.2, ease: 'power3.out'
+            });
+            
+            // Skills
+            gsap.utils.toArray("#skills-container .skill-category-wrapper").forEach(wrapper => {
+                gsap.from(wrapper, {
+                    scrollTrigger: { trigger: wrapper, start: "top 85%", toggleActions: "play none none none" },
+                    opacity: 0, y: 40, duration: 0.7, ease: 'power3.out'
+                });
+                gsap.from(wrapper.querySelectorAll(".skill-item"), {
+                    scrollTrigger: { trigger: wrapper, start: "top 85%", toggleActions: "play none none none" },
+                    opacity: 0, y: 20, duration: 0.5, stagger: 0.1, delay: 0.2, ease: 'power2.out'
+                });
+            });
+
+            // Contact
+            gsap.from(".contact-content > *", {
+                scrollTrigger: { trigger: ".contact-content", start: "top 80%", toggleActions: "play none none none" },
+                opacity: 0, y: 40, duration: 0.7, stagger: 0.2, ease: 'power3.out'
+            });
+
+
+            // --- 6. Dynamic Content Rendering ---
+            const projects = [
+                { title: "Retail Sales - USA", description: "In-depth analysis of retail sales, identifying trends and regional patterns.", link: "https://public.tableau.com/views/Section_6_Retail_Sales_USA_17519498877730/Dashboard1?:language=en-GB&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link", thumbnail: "assets/img/Retail_Sales_USA.png", tags: ["Python", "Tableau"], size: 'large' },
+                { title: "Coal Mining Industry", description: "Visualizing production, employment, and economic impact.", link: "https://public.tableau.com/views/Section_3_Coal_Mining_V3/Report?:language=en-GB&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link", thumbnail: "assets/img/Coal Mining Industry.png", tags: ["PowerBI", "Excel"], size: 'small' },
+                { title: "UK Bank Customers", description: "A story-driven dashboard analyzing customer segments.", link: "https://public.tableau.com/views/UKBankCustomers_17519326212990/Story1?:language=en-GB&publish=yes&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link", thumbnail: "assets/img/UK Bank Customers.png", tags: ["Tableau", "SQL"], size: 'small' },
+                { title: "World Demographics", description: "Animated dashboard showing population change over time.", link: "https://public.tableau.com/views/Section_5_World_Demo/Animation?:language=en-GB&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link", thumbnail: "assets/img/World_Demographics.png", tags: ["Tableau", "Python"], size: 'wide' },
+                { title: "Clothing Industry - AUS", description: "Market trends, sales, and consumer data analysis.", link: "https://public.tableau.com/views/Section_4_Clothes_Industry_Australia/FinalPresentation?:language=en-GB&publish=yes&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link", thumbnail: "assets/img/Clothing Industry - AUS.png", tags: ["Python", "Excel"], size: 'small' }
+            ];
+            
             const projectCardsContainer = document.getElementById('project-cards-container');
 
             function renderProjects() {
                 projectCardsContainer.innerHTML = '';
-                projects.forEach((project) => {
-                    const cardWrapper = document.createElement('a');
-                    // Add 'relative' to the group wrapper to position the popup
-                    cardWrapper.className = 'group w-full block relative';
-                    cardWrapper.href = project.link;
-                    cardWrapper.target = "_blank";
-                    cardWrapper.rel = "noopener noreferrer";
-                    
-                    cardWrapper.innerHTML = `
-                        <!-- The Project Card: moves left on hover -->
-                        <div class="project-card flex flex-col sm:flex-row items-center gap-6 w-full p-4 sm:p-5 rounded-xl border border-slate-200/80 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 transition-all duration-300 transform-gpu group-hover:bg-white dark:group-hover:bg-slate-800/50 group-hover:shadow-xl group-hover:-translate-x-4">
-                            <div class="w-24 h-24 flex-shrink-0 bg-slate-100 dark:bg-slate-800 rounded-lg overflow-hidden shadow-sm">
-                                <img src="${project.thumbnail}" alt="${project.title} thumbnail" class="w-full h-full object-cover">
-                            </div>
-                            <div class="flex-grow w-full">
-                                <h3 class="text-lg font-bold text-slate-900 dark:text-slate-100">${project.title}</h3>
-                                <p class="text-slate-600 dark:text-slate-400 text-sm mt-1 mb-4">${project.description}</p>
-                                <div class="flex flex-wrap gap-2">
-                                    ${project.tags.map(tag => `<span class="tech-badge">${tag}</span>`).join('')}
-                                </div>
-                            </div>
-                            <div class="hidden sm:block ml-auto flex-shrink-0 self-center pl-4">
-                                <i class="fas fa-arrow-right text-slate-400 dark:text-slate-500 transition-transform duration-300 group-hover:translate-x-1"></i>
+                projects.forEach((project, index) => {
+                    let gridClasses = 'project-card-bento relative group interactive rounded-2xl overflow-hidden bg-slate-100 dark:bg-slate-900 ';
+                    switch(project.size) {
+                        case 'large': gridClasses += 'md:col-span-2 md:row-span-2'; break;
+                        case 'wide': gridClasses += 'md:col-span-2'; break;
+                        default: gridClasses += ''; break; // small
+                    }
+
+                    const card = document.createElement('a');
+                    card.className = gridClasses;
+                    card.href = project.link;
+                    card.target = "_blank";
+                    card.rel = "noopener noreferrer";
+
+                    card.innerHTML = `
+                        <img src="${project.thumbnail}" alt="${project.title}" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                        <div class="absolute inset-0 p-6 flex flex-col justify-end">
+                            <h3 class="text-xl font-bold text-white">${project.title}</h3>
+                            <p class="text-slate-200 text-sm mt-1">${project.description}</p>
+                             <div class="flex flex-wrap gap-2 mt-4">
+                                ${project.tags.map(tag => `<span class="tech-badge">${tag}</span>`).join('')}
                             </div>
                         </div>
-
-                        <!-- The Popup Preview Image: appears on hover -->
-                        <div class="hidden lg:block absolute left-full top-1/2 -translate-y-1/2 ml-6 w-80 aspect-video bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg shadow-2xl overflow-hidden pointer-events-none z-50 transition-all duration-300 transform-gpu opacity-0 scale-95 invisible group-hover:opacity-100 group-hover:scale-100 group-hover:visible">
-                            <img src="${project.image}" alt="${project.title} Preview" class="w-full h-full object-cover">
+                        <!-- Animated Chart -->
+                        <div class="absolute top-4 right-4 w-12 h-12 bg-white/20 dark:bg-black/20 backdrop-blur-sm rounded-full p-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                           <svg viewBox="0 0 24 24" class="w-full h-full text-white">
+                              <rect class="bar" x="4" y="10" width="3" height="10" rx="1" style="transform-origin: bottom; transform: scaleY(0.6); transition: transform 0.4s ease .1s;"></rect>
+                              <rect class="bar" x="10" y="4" width="3" height="16" rx="1" style="transform-origin: bottom; transform: scaleY(1); transition: transform 0.4s ease .2s;"></rect>
+                              <rect class="bar" x="16" y="14" width="3" height="6" rx="1" style="transform-origin: bottom; transform: scaleY(0.3); transition: transform 0.4s ease .3s;"></rect>
+                           </svg>
                         </div>
                     `;
-                    projectCardsContainer.appendChild(cardWrapper);
+                    projectCardsContainer.appendChild(card);
                 });
             }
-
             renderProjects();
-            
+
             // --- Skills Data and Rendering ---
             const skillsData = {
-                languages: [
-                    { name: 'Python', light_icon: 'assets/img/Tools/Python.png', dark_icon: 'assets/img/Tools/Inverted/Python.png' },
-                    { name: 'MySQL', light_icon: 'assets/img/Tools/MySQL.png', dark_icon: 'assets/img/Tools/Inverted/MySQL.png' },
-                    { name: 'R', light_icon: 'assets/img/Tools/R.png', dark_icon: 'assets/img/Tools/Inverted/R.png' },
-                    { name: 'MongoDB', light_icon: 'assets/img/Tools/MongoDB.png', dark_icon: 'assets/img/Tools/Inverted/MongoDB.png' }
-                ],
-                libraries: [
-                    { name: 'Pandas', light_icon: 'assets/img/Tools/pandas.png', dark_icon: 'assets/img/Tools/Inverted/pandas.png' },
-                    { name: 'NumPy', light_icon: 'assets/img/Tools/numpy.png', dark_icon: 'assets/img/Tools/Inverted/numpy.png' },
-                    { name: 'Matplotlib', light_icon: 'assets/img/Tools/Matplotlib.png', dark_icon: 'assets/img/Tools/Inverted/Matplotlib.png' },
-                    { name: 'Seaborn', light_icon: 'assets/img/Tools/seaborn.png', dark_icon: 'assets/img/Tools/Inverted/seaborn.png' },
-                    { name: 'Beautiful Soup', light_icon: 'assets/img/Tools/BeautifulSoup.png', dark_icon: 'assets/img/Tools/Inverted/BeautifulSoup.png' },
-                    { name: 'TensorFlow', light_icon: 'assets/img/Tools/TensorFlow.png', dark_icon: 'assets/img/Tools/Inverted/TensorFlow.png' },
-                    { name: 'PyTorch', light_icon: 'assets/img/Tools/PyTorch.png', dark_icon: 'assets/img/Tools/Inverted/PyTorch.png' },
-                ],
-                tools: [
-                    { name: 'Tableau', light_icon: 'assets/img/Tools/Tableau.png', dark_icon: 'assets/img/Tools/Inverted/Tableau.png' },
-                    { name: 'Power BI', light_icon: 'assets/img/Tools/PowerBI.png', dark_icon: 'assets/img/Tools/Inverted/PowerBI.png' },
-                    { name: 'Excel', light_icon: 'assets/img/Tools/Excel.png', dark_icon: 'assets/img/Tools/Inverted/Excel.png' },
-                    { name: 'Google Sheets', light_icon: 'assets/img/Tools/GoogleSheets.png', dark_icon: 'assets/img/Tools/Inverted/GoogleSheets.png' },
-                    { name: 'Git', light_icon: 'assets/img/Tools/Git.png', dark_icon: 'assets/img/Tools/Inverted/Git.png' },
-                    { name: 'Jupyter', light_icon: 'assets/img/Tools/Jupyter.png', dark_icon: 'assets/img/Tools/Inverted/Jupyter.png' },
-                    { name: 'Apache Airflow', light_icon: 'assets/img/Tools/ApacheAirflow.png', dark_icon: 'assets/img/Tools/Inverted/ApacheAirflow.png'},
-                    { name: 'Microsoft Suite', light_icon: 'assets/img/Tools/MicrosoftSuite.png', dark_icon: 'assets/img/Tools/Inverted/MicrosoftSuite.png' }
-                ],
+                languages: [ { name: 'Python', light_icon: 'assets/img/Tools/Python.png', dark_icon: 'assets/img/Tools/Inverted/Python.png' }, { name: 'MySQL', light_icon: 'assets/img/Tools/MySQL.png', dark_icon: 'assets/img/Tools/Inverted/MySQL.png' }, { name: 'R', light_icon: 'assets/img/Tools/R.png', dark_icon: 'assets/img/Tools/Inverted/R.png' }, { name: 'MongoDB', light_icon: 'assets/img/Tools/MongoDB.png', dark_icon: 'assets/img/Tools/Inverted/MongoDB.png' } ],
+                libraries: [ { name: 'Pandas', light_icon: 'assets/img/Tools/pandas.png', dark_icon: 'assets/img/Tools/Inverted/pandas.png' }, { name: 'NumPy', light_icon: 'assets/img/Tools/numpy.png', dark_icon: 'assets/img/Tools/Inverted/numpy.png' }, { name: 'Matplotlib', light_icon: 'assets/img/Tools/Matplotlib.png', dark_icon: 'assets/img/Tools/Inverted/Matplotlib.png' }, { name: 'Seaborn', light_icon: 'assets/img/Tools/seaborn.png', dark_icon: 'assets/img/Tools/Inverted/seaborn.png' }, { name: 'Beautiful Soup', light_icon: 'assets/img/Tools/BeautifulSoup.png', dark_icon: 'assets/img/Tools/Inverted/BeautifulSoup.png' }, { name: 'TensorFlow', light_icon: 'assets/img/Tools/TensorFlow.png', dark_icon: 'assets/img/Tools/Inverted/TensorFlow.png' }, { name: 'PyTorch', light_icon: 'assets/img/Tools/PyTorch.png', dark_icon: 'assets/img/Tools/Inverted/PyTorch.png' }, ],
+                tools: [ { name: 'Tableau', light_icon: 'assets/img/Tools/Tableau.png', dark_icon: 'assets/img/Tools/Inverted/Tableau.png' }, { name: 'Power BI', light_icon: 'assets/img/Tools/PowerBI.png', dark_icon: 'assets/img/Tools/Inverted/PowerBI.png' }, { name: 'Excel', light_icon: 'assets/img/Tools/Excel.png', dark_icon: 'assets/img/Tools/Inverted/Excel.png' }, { name: 'Google Sheets', light_icon: 'assets/img/Tools/GoogleSheets.png', dark_icon: 'assets/img/Tools/Inverted/GoogleSheets.png' }, { name: 'Git', light_icon: 'assets/img/Tools/Git.png', dark_icon: 'assets/img/Tools/Inverted/Git.png' }, { name: 'Jupyter', light_icon: 'assets/img/Tools/Jupyter.png', dark_icon: 'assets/img/Tools/Inverted/Jupyter.png' }, { name: 'Apache Airflow', light_icon: 'assets/img/Tools/ApacheAirflow.png', dark_icon: 'assets/img/Tools/Inverted/ApacheAirflow.png'}, { name: 'Microsoft Suite', light_icon: 'assets/img/Tools/MicrosoftSuite.png', dark_icon: 'assets/img/Tools/Inverted/MicrosoftSuite.png' } ],
             };
             const skillsContainer = document.getElementById('skills-container');
-
             function renderSkills() {
                 skillsContainer.innerHTML = '';
                 Object.keys(skillsData).forEach(categoryKey => {
                     const category = skillsData[categoryKey];
+                    const wrapper = document.createElement('div');
+                    wrapper.className = 'skill-category-wrapper';
+                    
                     const title = document.createElement('h3');
                     title.className = 'skill-category-title';
-                    const formattedTitle = categoryKey.charAt(0).toUpperCase() + categoryKey.slice(1);
-                    title.textContent = formattedTitle;
-                    skillsContainer.appendChild(title);
+                    title.textContent = categoryKey.charAt(0).toUpperCase() + categoryKey.slice(1);
+                    wrapper.appendChild(title);
                     
                     const grid = document.createElement('div');
                     grid.className = 'skill-badge-container';
-                    skillsContainer.appendChild(grid);
+                    wrapper.appendChild(grid);
 
                     category.forEach(skill => {
                         const item = document.createElement('div');
-                        item.className = 'skill-item';
-                        
-                        let iconHtml = '';
-                        if (skill.light_icon) {
-                            iconHtml = `<img src="${skill.light_icon}" alt="${skill.name} logo" class="w-full h-full object-contain theme-aware-skill-logo" data-light-src="${skill.light_icon}" data-dark-src="${skill.dark_icon}">`;
-                        } else if (skill.icon_svg) {
-                            iconHtml = skill.icon_svg;
-                        }
-
+                        item.className = 'skill-item interactive';
+                        let iconHtml = skill.light_icon ? `<img src="${skill.light_icon}" alt="${skill.name} logo" class="w-full h-full object-contain theme-aware-skill-logo" data-light-src="${skill.light_icon}" data-dark-src="${skill.dark_icon}">` : skill.icon_svg;
                         item.innerHTML = `<div class="skill-icon">${iconHtml}</div><span>${skill.name}</span>`;
                         grid.appendChild(item);
                     });
+                    skillsContainer.appendChild(wrapper);
                 });
             }
             renderSkills();
 
-            // --- Initial Setup ---
+            // --- 7. Final Setup ---
             document.getElementById('current-year').textContent = new Date().getFullYear();
-            // Set initial images based on theme from localStorage
             updateThemeImages(); 
         });
     </script>
