@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
@@ -52,6 +53,29 @@
             animation: bounce 2s infinite;
         }
     </style>
+    
+    <!-- **NEW** Style for Glassmorphism Header -->
+    <style>
+        /* Add a transition to the header for smooth effect change */
+        #header {
+            transition: background-color 0.3s ease-in-out, backdrop-filter 0.3s ease-in-out, -webkit-backdrop-filter 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        /* Default state (no scroll) is solid */
+        #header {
+             background-color: #0f172a; /* bg-slate-900 */
+        }
+        /* Scrolled state with blur and fallback */
+        .header-scrolled {
+            background-color: rgba(15, 23, 42, 0.8); /* slate-900 at 80% opacity */
+        }
+        @supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+            .header-scrolled {
+                background-color: rgba(15, 23, 42, 0.65); /* A bit more transparent if blur is supported */
+                -webkit-backdrop-filter: blur(8px);
+                backdrop-filter: blur(8px);
+            }
+        }
+    </style>
 </head>
 <body class="bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-300 transition-colors duration-300">
 
@@ -61,7 +85,7 @@
     </div>
 
     <!-- Header & Navigation -->
-    <header id="header" class="fixed top-0 left-0 right-0 z-40 transition-shadow duration-300 bg-slate-900">
+    <header id="header" class="fixed top-0 left-0 right-0 z-40">
         <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <!-- Left Aligned Name -->
@@ -109,18 +133,18 @@
         <!-- Home & About Section -->
         <section id="home" class="min-h-screen flex flex-col items-center justify-center text-center relative">
             
-            <!-- Stats Block -->
-            <div class="hidden lg:flex flex-col gap-8 fixed top-1/2 -translate-y-1/2 right-5 lg:right-8 z-50">
+            <!-- **UPDATED** Stats Block for Counting Animation -->
+            <div id="stats-container" class="hidden lg:flex flex-col gap-8 fixed top-1/2 -translate-y-1/2 right-5 lg:right-8 z-50">
                 <div class="stat-item text-right">
-                    <p class="text-xl font-bold text-slate-900 dark:text-white">4+</p>
+                    <p class="text-xl font-bold text-slate-900 dark:text-white count-up" data-target="4">0</p>
                     <p class="text-xs text-slate-500 dark:text-slate-400">Years of Experience</p>
                 </div>
                  <div class="stat-item text-right">
-                    <p class="text-xl font-bold text-slate-900 dark:text-white">12+</p>
+                    <p class="text-xl font-bold text-slate-900 dark:text-white count-up" data-target="12">0</p>
                     <p class="text-xs text-slate-500 dark:text-slate-400">Completed Projects</p>
                 </div>
                  <div class="stat-item text-right">
-                    <p class="text-xl font-bold text-slate-900 dark:text-white">10K+</p>
+                    <p class="text-xl font-bold text-slate-900 dark:text-white count-up" data-target="10000">0</p>
                     <p class="text-xs text-slate-500 dark:text-slate-400">Hours Worked</p>
                 </div>
             </div>
@@ -430,10 +454,12 @@
                 });
             });
 
-            // --- Header shadow on scroll ---
+            // --- **UPDATED** Header scroll effects (Glassmorphism & Shadow) ---
             const header = document.getElementById('header');
             const handleHeaderScroll = () => {
-                header.classList.toggle('shadow-lg', window.scrollY > 10);
+                const isScrolled = window.scrollY > 10;
+                header.classList.toggle('shadow-lg', isScrolled);
+                header.classList.toggle('header-scrolled', isScrolled);
             };
 
             // --- Scroll Progress Bar & Parallax ---
@@ -465,6 +491,54 @@
                 });
             }, { threshold: 0.1 });
             animatedElements.forEach(el => observer.observe(el));
+
+            // --- **NEW** Count-Up Animation Logic ---
+            const animateCountUp = (el) => {
+                const target = parseInt(el.dataset.target, 10);
+                const duration = 2000; // Animation duration in milliseconds
+                let startTimestamp = null;
+
+                const step = (timestamp) => {
+                    if (!startTimestamp) startTimestamp = timestamp;
+                    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                    const currentNumber = Math.floor(progress * target);
+                    
+                    el.textContent = currentNumber.toLocaleString(); // Use toLocaleString for potential commas
+
+                    if (progress < 1) {
+                        window.requestAnimationFrame(step);
+                    } else {
+                        // Ensure final value is accurate and add suffix
+                        if (target >= 10000) {
+                            el.textContent = `${(target / 1000).toLocaleString()}K+`;
+                        } else {
+                            el.textContent = `${target.toLocaleString()}+`;
+                        }
+                    }
+                };
+                window.requestAnimationFrame(step);
+            };
+
+            const statsContainer = document.getElementById('stats-container');
+            if (statsContainer) {
+                const statsObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const countUpElements = entry.target.querySelectorAll('.count-up');
+                            countUpElements.forEach(el => {
+                                // Prevent re-animating if already animated
+                                if (!el.dataset.animated) {
+                                    animateCountUp(el);
+                                    el.dataset.animated = "true";
+                                }
+                            });
+                            // Unobserve after animating to save resources, as it's a fixed element
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.1 }); // Trigger when 10% is visible
+                statsObserver.observe(statsContainer);
+            }
             
             // --- Project Data ---
             const projects = [
@@ -586,3 +660,4 @@
     </script>
 </body>
 </html>
+```
