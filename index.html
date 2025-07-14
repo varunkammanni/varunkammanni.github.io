@@ -352,10 +352,10 @@
                     '.social-icon': { '@apply text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-transform duration-300 hover:scale-110': {}, },
                     '.section-title': { '@apply text-3xl md:text-4xl font-bold text-center mb-12 text-slate-900 dark:text-slate-100': {}, },
                     '.tech-badge': { '@apply inline-block bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300 text-xs font-semibold px-2.5 py-1 rounded-full': {}, },
-                    '.skill-badge-container': { '@apply grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-x-8 gap-y-4': {}, },
+                    '.skill-badge-container': { '@apply flex flex-wrap justify-center items-center gap-x-10 gap-y-6': {}, },
                     '.skill-item': { '@apply flex items-center gap-3 transition-transform duration-300 hover:scale-105': {} },
-                    '.skill-icon': { '@apply h-6 w-6 text-slate-600 dark:text-slate-400 flex-shrink-0': {} },
-                    '.skill-category-title': { '@apply text-lg font-semibold text-center mb-4 text-slate-600 dark:text-slate-400': {}, },
+                    '.skill-icon': { '@apply h-8 w-8 text-slate-600 dark:text-slate-400 flex-shrink-0': {} },
+                    '.skill-category-title': { '@apply text-lg font-semibold text-center mb-6 text-slate-600 dark:text-slate-400': {}, },
                     '.cta-button': { '@apply inline-block bg-slate-800 text-white font-bold py-3 px-8 rounded-lg text-lg hover:bg-slate-950 dark:bg-slate-200 dark:text-slate-900 dark:hover:bg-white transition-all duration-300 transform hover:scale-105 shadow-lg': {}, },
                     '.timeline-dot': { '@apply absolute left-3 -translate-x-1/2 top-0 h-5 w-5 rounded-full bg-slate-500 border-4 border-white dark:border-slate-950 group-hover:bg-slate-800 dark:group-hover:bg-slate-200 transition-colors duration-300 mt-1': {}, },
                     '.contact-item': { '@apply flex items-center text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 font-medium transition-colors': {} },
@@ -541,8 +541,7 @@
                     { name: 'Git', light_icon: 'assets/img/Tools/Git.png', dark_icon: 'assets/img/Tools/Inverted/Git.png' },
                     { name: 'Jupyter', light_icon: 'assets/img/Tools/Jupyter.png', dark_icon: 'assets/img/Tools/Inverted/Jupyter.png' },
                     { name: 'Apache Airflow', light_icon: 'assets/img/Tools/ApacheAirflow.png', dark_icon: 'assets/img/Tools/Inverted/ApacheAirflow.png'},
-                    { name: 'Microsoft Suite', light_icon: 'assets/img/Tools/MicrosoftSuite.png', dark_icon: 'assets/img/Tools/Inverted/MicrosoftSuite.png' },
-                    { name: 'More', icon_svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M5 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm14 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-7 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>' },
+                    { name: 'Microsoft Suite', light_icon: 'assets/img/Tools/MicrosoftSuite.png', dark_icon: 'assets/img/Tools/Inverted/MicrosoftSuite.png' }
                 ],
             };
             const skillsContainer = document.getElementById('skills-container');
@@ -580,7 +579,7 @@
             renderSkills();
 
             // --- Initial Setup ---
-            document.getElementById('current-year').textContent = new date().getFullYear();
+            document.getElementById('current-year').textContent = new Date().getFullYear();
             // Set initial images based on theme from localStorage
             updateThemeImages(); 
         });
